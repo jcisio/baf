@@ -17,7 +17,6 @@ def deploy(command, stream, destination):
 
     version = match[1]
     limits = {
-        f"beast-academy-en-francais-{version}.zip": 64 * 1024 * 1024,
         "site.css": 1024 * 1024,
         "privacy.html": 1024 * 1024,
         "index.html": 1024 * 1024,

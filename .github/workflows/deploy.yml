@@ -30,9 +30,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Prepare site and download release ZIP
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Prepare site and verify the GitHub download
         run: |
           if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             printf '%s\n' 'Expected a release tag such as v0.1.1.' >&2
@@ -40,12 +38,11 @@ jobs:
           fi
           version="${RELEASE_TAG#v}"
           archive="beast-academy-en-francais-$version.zip"
+          release_url="https://github.com/$GITHUB_REPOSITORY/releases/download/$RELEASE_TAG/$archive"
+          curl --fail --silent --show-error --location --head --retry 3 --max-time 30 "$release_url" >/dev/null
           deploy_dir="$RUNNER_TEMP/baf"
           mkdir "$deploy_dir"
-          gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --pattern "$archive" --dir "$deploy_dir"
-          unzip -tq "$deploy_dir/$archive"
-          test "$(unzip -p "$deploy_dir/$archive" manifest.json | jq -er .version)" = "$version"
-          sed "s/@@VERSION@@/$version/g" site/index.html > "$deploy_dir/index.html"
+          sed -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" site/index.html > "$deploy_dir/index.html"
           cp site/privacy.html site/site.css "$deploy_dir/"
       - name: Upload over SSH
         env:
@@ -58,16 +55,14 @@ jobs:
           trap 'rm -rf "$key_dir"' EXIT
           printf '%s\n' "$BAF_DEPLOY_KEY" > "$key_dir/key"
           printf '%s\n' "$BAF_SSH_KNOWN_HOSTS" > "$key_dir/known_hosts"
-          archive="beast-academy-en-francais-${RELEASE_TAG#v}.zip"
-          tar --format=ustar -C "$RUNNER_TEMP/baf" -cf - index.html privacy.html site.css "$archive" |
+          tar --format=ustar -C "$RUNNER_TEMP/baf" -cf - index.html privacy.html site.css |
             ssh -T -i "$key_dir/key" -o BatchMode=yes -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$key_dir/known_hosts" \
               hainam@jcisio.com "baf-deploy $RELEASE_TAG"
       - name: Verify public files
         run: |
           set -o pipefail
-          archive="beast-academy-en-francais-${RELEASE_TAG#v}.zip"
-          for file in index.html privacy.html site.css "$archive"; do
+          for file in index.html privacy.html site.css; do
             curl -fsS --retry 3 "https://dev.jcisio.com/baf/$file" |
               cmp - "$RUNNER_TEMP/baf/$file"
           done
