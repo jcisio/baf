@@ -25,7 +25,7 @@ Chrome translates English into French on-device and may need to download the lan
 ## Installation and Store preparation
 
 - Unzip the release and select the folder containing `manifest.json` with **Load unpacked** in `chrome://extensions`. Local builds use `npm ci` followed by `npm run build`.
-- The [Store screenshot](../../../store-assets/store-screenshot.jpg) is a 1280 × 800 JPEG showing a translated comic speech bubble.
+- The [Store screenshot](../../store-assets/store-screenshot.jpg) is a 1280 × 800 JPEG showing a translated comic speech bubble.
 - Chrome Web Store submission remains pending. The requested **BAF** extension icon, first-use capture disclosure and consent, and removal of unused CDN fallback code from the OCR bundle are open items. Prepare reviewer instructions and a test lesson that reviewers can access for submission. The [privacy policy](https://dev.jcisio.com/baf/privacy.html) is already hosted.
 
 ## Verification

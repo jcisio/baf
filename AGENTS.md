@@ -4,8 +4,8 @@
 
 Update the applicable spec in the same change as every code, UI, configuration, build, or deployment change. Record the resulting behavior, relevant constraints, and how to verify it. Keep verified results distinct from planned work. Extend an existing spec when it covers the area.
 
-- [Extension spec](docs/superpowers/specs/2026-11-22-beast-academy-french-design.md) covers scanning, OCR, translation, tooltips, compatibility, privacy, and Store preparation.
-- [Website and release spec](docs/superpowers/specs/2026-11-22-baf-website-and-release-design.md) covers the public site, responsive layout, GitHub Releases, and SSH deployment.
+- [Extension spec](docs/specs/2026-11-22-beast-academy-french-design.md) covers scanning, OCR, translation, tooltips, compatibility, privacy, and Store preparation.
+- [Website and release spec](docs/specs/2026-11-22-baf-website-and-release-design.md) covers the public site, responsive layout, GitHub Releases, and SSH deployment.
 
 ## Implement and verify
 
