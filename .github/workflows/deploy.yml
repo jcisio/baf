@@ -72,6 +72,6 @@ jobs:
         run: |
           set -o pipefail
           for file in index.html fr.html privacy.html privacy-fr.html site.css; do
-            curl -fsS --retry 3 "https://dev.jcisio.com/baf/$file" |
+            curl -fsS --retry 3 --connect-timeout 8 --max-time 20 --retry-max-time 30 "https://dev.jcisio.com/baf/$file" |
               cmp - "$RUNNER_TEMP/baf/$file"
           done

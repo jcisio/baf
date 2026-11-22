@@ -32,6 +32,6 @@ GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `B
 ## Verification
 
 - Run the release workflow and check that the tag matches the ZIP's root manifest and that GitHub serves the asset without sign-in. The [v0.1.1 release run](https://github.com/jcisio/baf/actions/runs/45065877452) used the manual trigger for the initial tag.
-- Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. Check that both download links point to the matching GitHub Release and all pages reference the expected stylesheet hash.
+- Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. Verification uses bounded requests so an unresponsive site cannot hold the deployment slot indefinitely. Check that both download links point to the matching GitHub Release and all pages reference the expected stylesheet hash.
 - On each homepage and privacy page, use the language switch to visit its counterpart. Verify that the installation and privacy links stay in the selected language and that the footer opens the BAF source repository on GitHub.
 - For layout changes, verify that all four pages remain readable and that each document's scroll width equals its viewport width above 1400 CSS pixels.
