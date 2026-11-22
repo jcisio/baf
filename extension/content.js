@@ -69,7 +69,7 @@
   function classroom() {
     return location.protocol === 'https:'
       && ['beastacademy.com', 'www.beastacademy.com'].includes(location.hostname)
-      && location.pathname.startsWith('/school/classroom/')
+      && ['/school/classroom/', '/demo/school/classroom/'].some(path => location.pathname.startsWith(path))
   }
 
   function prepare() {

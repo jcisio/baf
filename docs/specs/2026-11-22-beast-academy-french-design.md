@@ -1,10 +1,10 @@
 # French translation for Beast Academy
 
-The current manual-install release is [v0.1.1](https://github.com/jcisio/baf/releases/tag/v0.1.1). [Website and release behavior](2026-11-22-baf-website-and-release-design.md) is specified separately.
+The current manual-install release is [v0.1.2](https://github.com/jcisio/baf/releases/tag/v0.1.2). [Website and release behavior](2026-11-22-baf-website-and-release-design.md) is specified separately.
 
 ## What the learner does
 
-On a Beast Academy classroom page, clicking the Chrome extension icon starts translation. If Chrome requires a separate gesture to prepare the language model, the popup shows **Préparer la traduction**. Keep the popup open during scanning. It closes after placing the translation targets on the page.
+The toolbar icon uses the letters **BAF**. On first use, the popup explains that the extension reads visible text and captures the active lesson area on-device. **Allow and translate** saves permission locally and starts the scan. **Cancel** closes the popup without reading or capturing the tab. Later toolbar clicks on a Beast Academy classroom page start the scan automatically. If Chrome requires a separate gesture to prepare the language model, the popup shows **Préparer la traduction**. Keep the popup open during scanning. It closes after placing the translation targets on the page.
 
 Hovering over a supported block of English shows a French tooltip nearby. Clicking the block pins it. A close button or Escape dismisses it. Keyboard focus on a translation target shows the tooltip, and Enter pins it. The original English, illustrations, and lesson layout remain visible. When the text is already interactive, an adjacent **FR** button lets the site control retain its click behavior.
 
@@ -18,19 +18,20 @@ Video, narration, and read-aloud audio are outside this version.
 
 ## Where processing happens
 
-This Manifest V3 extension requires desktop Chrome 138 or later with the built-in Translator API available. Scans are limited to HTTPS pages under `/school/classroom/` on `beastacademy.com` or `www.beastacademy.com`. The extension uses `activeTab` and `scripting` after the user invokes it.
+This Manifest V3 extension requires desktop Chrome 138 or later with the built-in Translator API available. Scans are limited to HTTPS pages under `/school/classroom/` and the public demo's `/demo/school/classroom/` on `beastacademy.com` or `www.beastacademy.com`. The extension uses `activeTab` and `scripting` after the user invokes it.
 
-Chrome translates English into French on-device and may need to download the language model on first use. The extension uses bundled OCR assets and keeps the capture, text, and results in memory. It displays the current scan stage in French and reports when the model is unavailable or no readable text was found. The extension sends neither captured pixels nor lesson text to a remote service.
+Chrome translates English into French on-device and may need to download the language model on first use. The extension bundles the OCR worker, WebAssembly, and English recognition model. The build replaces Tesseract's CDN defaults with local asset paths and fails if those defaults change or a CDN reference remains. The extension stores consent locally and keeps the capture, lesson text, and results in memory. It displays the current scan stage in French and reports when the model is unavailable or no readable text was found. The extension sends neither captured pixels nor lesson text to a remote service.
 
 ## Installation and Store preparation
 
 - Unzip the release and select the folder containing `manifest.json` with **Load unpacked** in `chrome://extensions`. Local builds use `npm ci` followed by `npm run build`.
 - The [Store screenshot](../../store-assets/store-screenshot.jpg) is a 1280 × 800 JPEG showing a translated comic speech bubble.
-- Chrome Web Store submission remains pending. The requested **BAF** extension icon, first-use capture disclosure and consent, and removal of unused CDN fallback code from the OCR bundle are open items. Prepare reviewer instructions and a test lesson that reviewers can access for submission. The [privacy policy](https://dev.jcisio.com/baf/privacy.html) is already hosted.
+- The Store package includes a 128 × 128 **BAF** icon. Reviewers can open the [guest demo lesson Delicious + &amp; −](https://beastacademy.com/demo/school/classroom/1/7/1511/1) and its book section without signing in. The [privacy policy](https://dev.jcisio.com/baf/privacy.html) covers local consent and lesson processing.
 
 ## Verification
 
-- Run `npm test` to verify OCR coordinate mapping, grouping, and suppression of duplicate regions.
+- Run `npm test` to verify first-use consent and OCR coordinate mapping, grouping, and suppression of duplicate regions.
+- Run `npm run build` and check the ZIP for a root manifest, the 128 × 128 icon, and the bundled OCR assets.
 - Try the toolbar with a ready Translator API and with Chrome requiring a language-model gesture. The former should start immediately, and the latter should offer **Préparer la traduction**.
 - On page 33 of **More Than 20, Part 1**, hover over a visible bubble, confirm that the French matches the English in that bubble, and click to pin it. Verify keyboard pinning and dismissal.
 - Scroll to a different set of bubbles and scan again. Confirm that targets follow the newly visible text and old targets disappear.

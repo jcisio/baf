@@ -20,3 +20,5 @@ button {
 }
 button:focus-visible { outline: 3px solid #b49ae9; outline-offset: 2px; }
 p { margin: 10px 0 0; }
+.consent-actions { display: grid; gap: 8px; margin-top: 12px; }
+.secondary { background: #eee9f6; color: #231a35; }

@@ -10,7 +10,7 @@ Download and extract the extension ZIP from [GitHub Releases](https://github.com
 
 1. Open `chrome://extensions` in Chrome.
 2. Enable **Developer mode**, choose **Load unpacked**, and select the folder containing `manifest.json`.
-3. Open a Beast Academy classroom lesson or its book section and click the extension icon to start the scan. Keep the popup open until the scan finishes. If Chrome asks for a click to prepare the language model, choose **Préparer la traduction**.
+3. Open a Beast Academy classroom lesson or its book section and click the extension icon. On first use, review the privacy notice and choose **Allow and translate** to start. If Chrome asks for a click to prepare the language model, choose **Préparer la traduction**. Keep the popup open until the scan finishes.
 4. Hover over text to see French. Click to pin the translation. Press Escape or click × to close it. Tab to focus a translation target and Enter to pin it. A small **FR** button appears beside text that belongs to a site control.
 5. Scan again after scrolling or changing pages. Zoom in if the OCR misses small or stylized lettering.
 

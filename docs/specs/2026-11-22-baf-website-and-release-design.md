@@ -4,7 +4,7 @@
 
 The BAF website is static and available in [English](https://dev.jcisio.com/baf/) and [French](https://dev.jcisio.com/baf/fr.html). Each homepage describes the extension, shows an English-to-French example, and gives manual Chrome installation instructions. Both download buttons link to the same selected version's public GitHub Release ZIP. The website identifies the extension as independent and unofficial.
 
-The privacy policy is available in [English](https://dev.jcisio.com/baf/privacy.html) and [French](https://dev.jcisio.com/baf/privacy-fr.html). Both versions describe on-device lesson processing, Chrome's language-model download, and standard hosting logs. The public privacy contact is `dev@jcisio.com`.
+The privacy policy is available in [English](https://dev.jcisio.com/baf/privacy.html) and [French](https://dev.jcisio.com/baf/privacy-fr.html). Both versions describe first-use consent, local storage of the consent choice, active-tab checks, on-device lesson processing, Chrome's language-model download, and standard hosting logs. The public privacy contact is `dev@jcisio.com`.
 
 Each page declares its language. A language link in the header opens the same page in the other language. Installation and privacy navigation stay in the selected language.
 

@@ -2,6 +2,10 @@ import { collectRegions } from './regions.mjs'
 
 const scan = document.querySelector('#scan')
 const status = document.querySelector('#status')
+const consent = document.querySelector('#consent')
+const allow = document.querySelector('#allow')
+const cancel = document.querySelector('#cancel')
+const consentKey = 'allow-local-lesson-translation'
 const languages = { sourceLanguage: 'en', targetLanguage: 'fr' }
 
 class ScanError extends Error {}
@@ -10,7 +14,7 @@ function isClassroom(value) {
   const url = new URL(value ?? 'about:blank')
   return url.protocol === 'https:'
     && ['beastacademy.com', 'www.beastacademy.com'].includes(url.hostname)
-    && url.pathname.startsWith('/school/classroom/')
+    && ['/school/classroom/', '/demo/school/classroom/'].some(path => url.pathname.startsWith(path))
 }
 
 async function capture(tab, view) {
@@ -135,12 +139,30 @@ async function translatePage(tab, fromClick = false) {
   }
 }
 
-const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
-if (!isClassroom(tab?.url)) {
-  status.textContent = 'Ouvrez une leçon Beast Academy pour utiliser la traduction.'
-} else if (!globalThis.Translator) {
-  status.textContent = 'La traduction locale nécessite une version récente de Chrome sur ordinateur.'
+async function start(fromModelButton = false) {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+  if (!isClassroom(tab?.url)) {
+    status.textContent = 'Ouvrez une leçon Beast Academy pour utiliser la traduction.'
+  } else if (!globalThis.Translator) {
+    status.textContent = 'La traduction locale nécessite une version récente de Chrome sur ordinateur.'
+  } else {
+    await translatePage(tab, fromModelButton)
+  }
+}
+
+scan.addEventListener('click', () => start(true))
+allow.addEventListener('click', async () => {
+  localStorage.setItem(consentKey, 'yes')
+  consent.hidden = true
+  status.hidden = false
+  await start()
+})
+cancel.addEventListener('click', () => window.close())
+
+if (localStorage.getItem(consentKey) === 'yes') {
+  await start()
 } else {
-  scan.addEventListener('click', () => translatePage(tab, true))
-  await translatePage(tab)
+  status.hidden = true
+  consent.hidden = false
+  allow.focus()
 }
