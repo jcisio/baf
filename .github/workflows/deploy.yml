@@ -42,8 +42,11 @@ jobs:
           curl --fail --silent --show-error --location --head --retry 3 --max-time 30 "$release_url" >/dev/null
           deploy_dir="$RUNNER_TEMP/baf"
           mkdir "$deploy_dir"
-          sed -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" site/index.html > "$deploy_dir/index.html"
-          cp site/privacy.html site/site.css "$deploy_dir/"
+          css_version=$(sha256sum site/site.css | cut -c 1-12)
+          stylesheet="s|href=\"site.css\"|href=\"site.css?v=$css_version\"|"
+          sed -e "$stylesheet" -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" site/index.html > "$deploy_dir/index.html"
+          sed -e "$stylesheet" site/privacy.html > "$deploy_dir/privacy.html"
+          cp site/site.css "$deploy_dir/"
       - name: Upload over SSH
         env:
           BAF_DEPLOY_KEY: ${{ secrets.BAF_DEPLOY_KEY }}
