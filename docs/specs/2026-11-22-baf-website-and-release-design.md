@@ -10,6 +10,8 @@ Each page declares its language. A language link in the header opens the same pa
 
 Every page has a localized footer link to the public GitHub source repository. The download buttons on the homepages point to the installable release ZIP.
 
+Both homepages link to the same [unofficial English–French math glossary](https://dev.jcisio.com/baf/math-glossary-en-fr.pdf). The glossary is a printable reference for math terminology and common lesson wording. It is versioned in the website source and served as a separate PDF from the extension ZIP.
+
 ## Layout and color
 
 - Keep the homepage compact. The site content is at most 53 rem wide with side gutters, body text defaults to 16 CSS pixels, and the homepage heading is at most 2.75 rem. Stack the hero columns on narrow screens.
@@ -27,11 +29,12 @@ The release job checks out the exact tag, checks the manifest version, installs 
 
 After the release job succeeds, **Deploy BAF website** publishes the site. It can also run manually with an existing GitHub Release tag for website-only changes. The deploy job verifies the public GitHub asset, renders the selected version and download URL into both homepages, and adds the stylesheet content hash to all four pages.
 
-GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `BAF_DEPLOY_KEY` secret and the pinned host key in `BAF_SSH_KNOWN_HOSTS`. The release workflow passes the deployment secret by name to the reusable job, where the environment supplies its value. The key invokes a restricted receiver that accepts only `index.html`, `fr.html`, `privacy.html`, `privacy-fr.html`, and `site.css`. It stages and validates the upload before installing the files under `/home/hainam/dev.jcisio.com/baf`, with the English homepage installed last. The GitHub Release remains the source for downloads.
+GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `BAF_DEPLOY_KEY` secret and the pinned host key in `BAF_SSH_KNOWN_HOSTS`. The release workflow passes the deployment secret by name to the reusable job, where the environment supplies its value. The key invokes a restricted receiver that accepts only the four HTML pages, `site.css`, and `math-glossary-en-fr.pdf`. It stages and validates the upload before installing the files under `/home/hainam/dev.jcisio.com/baf`, with the English homepage installed last. The GitHub Release remains the source for extension downloads.
 
 ## Verification
 
 - Run the release workflow and check that the tag matches the ZIP's root manifest and that GitHub serves the asset without sign-in. The [v0.1.1 release run](https://github.com/jcisio/baf/actions/runs/45065877452) used the manual trigger for the initial tag.
 - Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. Verification uses bounded requests so an unresponsive site cannot hold the deployment slot indefinitely. Check that both download links point to the matching GitHub Release and all pages reference the expected stylesheet hash.
 - On each homepage and privacy page, use the language switch to visit its counterpart. Verify that the installation and privacy links stay in the selected language and that the footer opens the BAF source repository on GitHub.
+- On both homepages, verify that the glossary link opens the same four-page PDF, labeled unofficial and with the corrected explanation of congruent figures.
 - For layout changes, verify that all four pages remain readable and that each document's scroll width equals its viewport width above 1400 CSS pixels.

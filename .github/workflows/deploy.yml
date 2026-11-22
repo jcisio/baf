@@ -51,7 +51,7 @@ jobs:
             sed -e "$stylesheet" -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" \
               "site/$page" > "$deploy_dir/$page"
           done
-          cp site/site.css "$deploy_dir/"
+          cp site/site.css site/math-glossary-en-fr.pdf "$deploy_dir/"
       - name: Upload over SSH
         env:
           BAF_DEPLOY_KEY: ${{ secrets.BAF_DEPLOY_KEY }}
@@ -64,14 +64,14 @@ jobs:
           test -n "$BAF_DEPLOY_KEY"
           printf '%s\n' "$BAF_DEPLOY_KEY" > "$key_dir/key"
           printf '%s\n' "$BAF_SSH_KNOWN_HOSTS" > "$key_dir/known_hosts"
-          tar --format=ustar -C "$RUNNER_TEMP/baf" -cf - index.html fr.html privacy.html privacy-fr.html site.css |
+          tar --format=ustar -C "$RUNNER_TEMP/baf" -cf - index.html fr.html privacy.html privacy-fr.html site.css math-glossary-en-fr.pdf |
             ssh -T -i "$key_dir/key" -o BatchMode=yes -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$key_dir/known_hosts" \
               hainam@jcisio.com "baf-deploy $RELEASE_TAG"
       - name: Verify public files
         run: |
           set -o pipefail
-          for file in index.html fr.html privacy.html privacy-fr.html site.css; do
+          for file in index.html fr.html privacy.html privacy-fr.html site.css math-glossary-en-fr.pdf; do
             curl -fsS --retry 3 --connect-timeout 8 --max-time 20 --retry-max-time 30 "https://dev.jcisio.com/baf/$file" |
               cmp - "$RUNNER_TEMP/baf/$file"
           done
