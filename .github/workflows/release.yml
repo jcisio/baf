@@ -12,11 +12,13 @@ on:
         type: string
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
     steps:
@@ -52,3 +54,8 @@ jobs:
         run: |
           archive="$RUNNER_TEMP/beast-academy-en-francais-${RELEASE_TAG#v}.zip"
           gh release create "$RELEASE_TAG" "$archive" --verify-tag --generate-notes
+  deploy:
+    needs: release
+    uses: ./.github/workflows/deploy.yml
+    with:
+      tag: ${{ inputs.tag || github.ref_name }}
