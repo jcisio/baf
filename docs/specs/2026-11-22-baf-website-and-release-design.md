@@ -19,7 +19,7 @@ Every page has a localized footer link to the public GitHub source repository. T
 
 ## Build and publish releases
 
-The version in `extension/manifest.json` determines the release version. Use a matching three-part tag such as `v0.1.1`. Pushing the tag triggers **Build extension release**. The same workflow can be run manually for an existing tag without a published release.
+The version in `extension/manifest.json` determines the release version. Use a matching three-part tag such as `v0.1.1`. Pushing the tag triggers **Build extension release**. The same workflow can run manually for an existing tag. If the release already exists, the workflow verifies that its ZIP contains the same files as the new build and reuses it.
 
 The release job checks out the exact tag, checks the manifest version, installs the locked npm dependencies, runs the tests, and builds the extension. It validates the ZIP and attaches `beast-academy-en-francais-<version>.zip` to the matching GitHub Release with `manifest.json` at the archive root.
 
@@ -27,7 +27,7 @@ The release job checks out the exact tag, checks the manifest version, installs 
 
 After the release job succeeds, **Deploy BAF website** publishes the site. It can also run manually with an existing GitHub Release tag for website-only changes. The deploy job verifies the public GitHub asset, renders the selected version and download URL into both homepages, and adds the stylesheet content hash to all four pages.
 
-GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `BAF_DEPLOY_KEY` secret and the pinned host key in `BAF_SSH_KNOWN_HOSTS`. The key invokes a restricted receiver that accepts only `index.html`, `fr.html`, `privacy.html`, `privacy-fr.html`, and `site.css`. It stages and validates the upload before installing the files under `/home/hainam/dev.jcisio.com/baf`, with the English homepage installed last. The GitHub Release remains the source for downloads.
+GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `BAF_DEPLOY_KEY` secret and the pinned host key in `BAF_SSH_KNOWN_HOSTS`. The release workflow passes the deployment secret by name to the reusable job, where the environment supplies its value. The key invokes a restricted receiver that accepts only `index.html`, `fr.html`, `privacy.html`, `privacy-fr.html`, and `site.css`. It stages and validates the upload before installing the files under `/home/hainam/dev.jcisio.com/baf`, with the English homepage installed last. The GitHub Release remains the source for downloads.
 
 ## Verification
 

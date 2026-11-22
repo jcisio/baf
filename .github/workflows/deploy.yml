@@ -6,6 +6,9 @@ on:
       tag:
         required: true
         type: string
+    secrets:
+      BAF_DEPLOY_KEY:
+        required: true
   workflow_dispatch:
     inputs:
       tag:
@@ -58,6 +61,7 @@ jobs:
           umask 077
           key_dir=$(mktemp -d "$RUNNER_TEMP/baf-ssh.XXXXXXXX")
           trap 'rm -rf "$key_dir"' EXIT
+          test -n "$BAF_DEPLOY_KEY"
           printf '%s\n' "$BAF_DEPLOY_KEY" > "$key_dir/key"
           printf '%s\n' "$BAF_SSH_KNOWN_HOSTS" > "$key_dir/known_hosts"
           tar --format=ustar -C "$RUNNER_TEMP/baf" -cf - index.html fr.html privacy.html privacy-fr.html site.css |

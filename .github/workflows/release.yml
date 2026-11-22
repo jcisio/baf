@@ -53,9 +53,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           archive="$RUNNER_TEMP/beast-academy-en-francais-${RELEASE_TAG#v}.zip"
-          gh release create "$RELEASE_TAG" "$archive" --verify-tag --generate-notes
+          if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft); then
+            test "$draft" = false
+            existing_dir=$(mktemp -d "$RUNNER_TEMP/baf-release.XXXXXXXX")
+            gh release download "$RELEASE_TAG" --pattern "${archive##*/}" --dir "$existing_dir"
+            unzip -q "$existing_dir/${archive##*/}" -d "$existing_dir/unpacked"
+            diff -qr dist "$existing_dir/unpacked"
+          else
+            gh release create "$RELEASE_TAG" "$archive" --verify-tag --generate-notes
+          fi
   deploy:
     needs: release
     uses: ./.github/workflows/deploy.yml
     with:
       tag: ${{ inputs.tag || github.ref_name }}
+    secrets:
+      BAF_DEPLOY_KEY: ${{ secrets.BAF_DEPLOY_KEY }}
