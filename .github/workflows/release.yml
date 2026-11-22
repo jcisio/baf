@@ -1,0 +1,45 @@
+name: Build extension release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Verify tag version
+        run: |
+          version=$(node -p "require('./extension/manifest.json').version")
+          if [[ "$GITHUB_REF_NAME" != "v$version" ]]; then
+            printf 'Tag %s must match the manifest version v%s.\n' "$GITHUB_REF_NAME" "$version" >&2
+            exit 1
+          fi
+      - name: Build and test
+        run: |
+          npm ci --ignore-scripts
+          npm test
+          npm run build
+      - name: Package extension
+        working-directory: dist
+        run: |
+          archive="$RUNNER_TEMP/beast-academy-en-francais-${GITHUB_REF_NAME#v}.zip"
+          zip -qr "$archive" .
+          unzip -tq "$archive"
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          archive="$RUNNER_TEMP/beast-academy-en-francais-${GITHUB_REF_NAME#v}.zip"
+          gh release create "$GITHUB_REF_NAME" "$archive" --verify-tag --generate-notes
