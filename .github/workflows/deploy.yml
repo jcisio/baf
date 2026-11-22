@@ -53,6 +53,7 @@ jobs:
           done
           cp site/site.css site/math-glossary-en-fr.pdf "$deploy_dir/"
       - name: Upload over SSH
+        timeout-minutes: 1
         env:
           BAF_DEPLOY_KEY: ${{ secrets.BAF_DEPLOY_KEY }}
           BAF_SSH_KNOWN_HOSTS: ${{ vars.BAF_SSH_KNOWN_HOSTS }}
@@ -65,7 +66,7 @@ jobs:
           printf '%s\n' "$BAF_DEPLOY_KEY" > "$key_dir/key"
           printf '%s\n' "$BAF_SSH_KNOWN_HOSTS" > "$key_dir/known_hosts"
           tar --format=ustar -C "$RUNNER_TEMP/baf" -cf - index.html fr.html privacy.html privacy-fr.html site.css math-glossary-en-fr.pdf |
-            ssh -T -i "$key_dir/key" -o BatchMode=yes -o IdentitiesOnly=yes \
+            ssh -T -i "$key_dir/key" -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=10 \
               -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$key_dir/known_hosts" \
               hainam@jcisio.com "baf-deploy $RELEASE_TAG"
       - name: Verify public files
