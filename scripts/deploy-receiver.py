@@ -18,6 +18,8 @@ def deploy(command, stream, destination):
     version = match[1]
     limits = {
         "site.css": 1024 * 1024,
+        "privacy-fr.html": 1024 * 1024,
+        "fr.html": 1024 * 1024,
         "privacy.html": 1024 * 1024,
         "index.html": 1024 * 1024,
     }

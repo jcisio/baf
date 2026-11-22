@@ -12,7 +12,7 @@ Update the applicable spec in the same change as every code, UI, configuration, 
 - State material assumptions and define how to verify multi-step changes. Make the smallest change that meets the request and preserve surrounding behavior.
 - Keep the extension scoped to Beast Academy classroom pages. Keep OCR, translation, and lesson content on-device. Chrome can download its language model.
 - Run `npm test` and `npm run build` for extension changes. Add tests for observable regressions that the existing suite would miss.
-- For a site layout change, check both public pages in a browser. Verify that neither page scrolls horizontally above 1400 CSS pixels.
+- Keep English and French website copy in sync. For a site layout change, check all four public pages in a browser. Verify that none scrolls horizontally above 1400 CSS pixels.
 - For a release or deploy change, verify the matching GitHub Release, the ZIP's root manifest, or the public website files as applicable.
 - Record reproducible tooling friction in `~/paper-cuts.md`.
 

@@ -44,8 +44,10 @@ jobs:
           mkdir "$deploy_dir"
           css_version=$(sha256sum site/site.css | cut -c 1-12)
           stylesheet="s|href=\"site.css\"|href=\"site.css?v=$css_version\"|"
-          sed -e "$stylesheet" -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" site/index.html > "$deploy_dir/index.html"
-          sed -e "$stylesheet" site/privacy.html > "$deploy_dir/privacy.html"
+          for page in index.html fr.html privacy.html privacy-fr.html; do
+            sed -e "$stylesheet" -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" \
+              "site/$page" > "$deploy_dir/$page"
+          done
           cp site/site.css "$deploy_dir/"
       - name: Upload over SSH
         env:
@@ -58,14 +60,14 @@ jobs:
           trap 'rm -rf "$key_dir"' EXIT
           printf '%s\n' "$BAF_DEPLOY_KEY" > "$key_dir/key"
           printf '%s\n' "$BAF_SSH_KNOWN_HOSTS" > "$key_dir/known_hosts"
-          tar --format=ustar -C "$RUNNER_TEMP/baf" -cf - index.html privacy.html site.css |
+          tar --format=ustar -C "$RUNNER_TEMP/baf" -cf - index.html fr.html privacy.html privacy-fr.html site.css |
             ssh -T -i "$key_dir/key" -o BatchMode=yes -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$key_dir/known_hosts" \
               hainam@jcisio.com "baf-deploy $RELEASE_TAG"
       - name: Verify public files
         run: |
           set -o pipefail
-          for file in index.html privacy.html site.css; do
+          for file in index.html fr.html privacy.html privacy-fr.html site.css; do
             curl -fsS --retry 3 "https://dev.jcisio.com/baf/$file" |
               cmp - "$RUNNER_TEMP/baf/$file"
           done
