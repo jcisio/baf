@@ -10,7 +10,7 @@ Each page declares its language. A language link in the header opens the same pa
 
 Every page has a localized footer link to the public GitHub source repository. The download buttons on the homepages point to the installable release ZIP.
 
-Both homepages link to the same [unofficial English–French math glossary](https://dev.jcisio.com/baf/math-glossary-en-fr.pdf). The glossary is a printable reference for math terminology and common lesson wording. It is versioned in the website source and served as a separate PDF from the extension ZIP.
+Both homepages link to the same [unofficial English–French math glossary](https://dev.jcisio.com/baf/math-glossary-en-fr.pdf). The glossary is a printable reference for math terminology and common lesson wording. All eight sections fit on two A4 landscape pages in two columns per page for printing on a single double-sided sheet. It is versioned in the website source and served as a separate PDF from the extension ZIP.
 
 ## Layout and color
 
@@ -36,5 +36,5 @@ GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `B
 - Run the release workflow and check that the tag matches the ZIP's root manifest and that GitHub serves the asset without sign-in. The [v0.1.1 release run](https://github.com/jcisio/baf/actions/runs/45065877452) used the manual trigger for the initial tag.
 - Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. SSH upload and HTTPS verification use timeouts so an unresponsive connection cannot hold the deployment slot indefinitely. Check that both download links point to the matching GitHub Release and all pages reference the expected stylesheet hash.
 - On each homepage and privacy page, use the language switch to visit its counterpart. Verify that the installation and privacy links stay in the selected language and that the footer opens the BAF source repository on GitHub.
-- On both homepages, verify that the glossary link opens the same four-page PDF, labeled unofficial and with the corrected explanation of congruent figures.
+- On both homepages, verify that the glossary link opens the same two-page A4 landscape PDF, labeled unofficial and with the corrected explanation of congruent figures.
 - For layout changes, verify that all four pages remain readable and that each document's scroll width equals its viewport width above 1400 CSS pixels.
