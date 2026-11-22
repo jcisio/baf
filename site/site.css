@@ -1,17 +1,19 @@
 :root {
   color-scheme: light;
   font: 100%/1.5 system-ui, sans-serif;
-  background: #f8f6ff;
-  color: #251b38;
-  --purple: #503889;
-  --border: #dbd1ee;
-  --muted: #594d6d;
+  background: #fff9fa;
+  color: #27171c;
+  --red: #ed1940;
+  --red-action: #d50033;
+  --red-dark: #a60126;
+  --border: #f1ccd2;
+  --muted: #65434b;
 }
 * { box-sizing: border-box; }
 body { margin: 0; }
 .wrap { width: min(100% - 2rem, 53rem); margin-inline: auto; }
-a { color: var(--purple); text-underline-offset: .2em; }
-a:focus-visible { outline: 3px solid #6c50a9; outline-offset: 4px; }
+a { color: var(--red-action); text-underline-offset: .2em; }
+a:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }
 .site-header, .site-footer {
   display: flex;
   justify-content: space-between;
@@ -28,7 +30,7 @@ a:focus-visible { outline: 3px solid #6c50a9; outline-offset: 4px; }
   width: 2.25rem;
   height: 2.25rem;
   border-radius: .65rem;
-  background: var(--purple);
+  background: var(--red-action);
   color: #fff;
   font-size: .84rem;
 }
@@ -48,12 +50,12 @@ h2 { font-size: 1.4rem; margin: 0 0 .75rem; }
   display: inline-block;
   border-radius: .55rem;
   padding: .55rem .85rem;
-  background: var(--purple);
+  background: var(--red-action);
   color: #fff;
   font-weight: 700;
   text-decoration: none;
 }
-.button:hover { background: #3e286f; }
+.button:hover { background: var(--red-dark); }
 .requirements, .site-footer { font-size: .9rem; color: var(--muted); }
 .requirements { margin: .65rem 0 0; }
 .example {
@@ -61,12 +63,13 @@ h2 { font-size: 1.4rem; margin: 0 0 .75rem; }
   gap: .75rem;
   padding: clamp(.9rem, 2vw, 1.25rem);
   border: 1px solid var(--border);
+  border-inline-start: 3px solid var(--red);
   border-radius: 1rem;
-  background: #eee7fa;
+  background: #fff0f2;
 }
 .example p { width: fit-content; padding: .5rem .75rem; margin: 0; }
 .original { background: #fff; border-radius: .95rem .95rem .95rem .2rem; }
-.translation { justify-self: end; background: #2d2050; color: white; border-radius: .75rem .75rem .2rem .75rem; }
+.translation { justify-self: end; background: var(--red-dark); color: white; border-radius: .75rem .75rem .2rem .75rem; }
 .guide { border-top: 1px solid var(--border); padding-block: 1.5rem; }
 .guide > p, .guide ol, .policy { max-width: 43rem; }
 .guide > p, .guide ol { margin-block: .75rem 0; }
