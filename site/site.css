@@ -1,0 +1,81 @@
+:root {
+  color-scheme: light;
+  font: 100%/1.6 system-ui, sans-serif;
+  background: #f8f6ff;
+  color: #251b38;
+  --purple: #503889;
+  --border: #dbd1ee;
+  --muted: #594d6d;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+.wrap { width: min(100% - 2.5rem, 67rem); margin-inline: auto; }
+a { color: var(--purple); text-underline-offset: .2em; }
+a:focus-visible { outline: 3px solid #6c50a9; outline-offset: 4px; }
+.site-header, .site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem 1.25rem;
+  padding-block: 1.25rem;
+}
+.site-header { border-bottom: 1px solid var(--border); }
+.brand { display: inline-flex; align-items: center; gap: .65rem; font-weight: 750; color: inherit; text-decoration: none; }
+.monogram {
+  display: grid;
+  place-items: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  border-radius: .65rem;
+  background: var(--purple);
+  color: #fff;
+  font-size: .84rem;
+}
+nav { display: flex; gap: 1rem; }
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-block: clamp(2.5rem, 7vw, 5.5rem);
+}
+h1, h2 { line-height: 1.13; letter-spacing: -.03em; }
+h1 { font-size: clamp(2.45rem, 6vw, 4.4rem); margin: 0 0 1rem; }
+h2 { font-size: 1.7rem; margin: 0 0 1rem; }
+.hero p { max-width: 33rem; }
+.hero div:first-child > p:first-of-type { font-size: 1.125rem; }
+.button {
+  display: inline-block;
+  border-radius: .55rem;
+  padding: .65rem 1rem;
+  background: var(--purple);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+.button:hover { background: #3e286f; }
+.requirements, .site-footer { font-size: .9rem; color: var(--muted); }
+.example {
+  display: grid;
+  gap: 1.1rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: #eee7fa;
+}
+.example p { width: fit-content; padding: .65rem .9rem; margin: 0; }
+.original { background: #fff; border-radius: .95rem .95rem .95rem .2rem; }
+.translation { justify-self: end; background: #2d2050; color: white; border-radius: .75rem .75rem .2rem .75rem; }
+.guide { border-top: 1px solid var(--border); padding-block: 2rem; }
+.guide > p, .guide ol, .policy { max-width: 48rem; }
+.guide ol { padding-left: 1.4rem; }
+.guide li + li { margin-top: .5rem; }
+code { font-size: .95em; overflow-wrap: anywhere; }
+.policy { padding-block: 3rem; }
+.policy h2 { margin-top: 2rem; }
+.site-footer { border-top: 1px solid var(--border); }
+.site-footer p { margin: 0; }
+@media (max-width: 44rem) {
+  .hero { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Beast Academy en français",
+  "version": "0.1.1",
+  "description": "Survolez le texte d’une leçon Beast Academy pour le lire en français.",
+  "minimum_chrome_version": "138",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_title": "Beast Academy en français",
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self'"
+  }
+}

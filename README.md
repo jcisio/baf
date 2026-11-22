@@ -1,2 +1,19 @@
-# baf
-Beast Academy en français
+# Beast Academy en français
+
+A Chrome extension for reading visible Beast Academy classroom text in French. It uses page text and on-device OCR of book illustrations and exercise instructions. Chrome translates the English locally. The first use may require downloading Chrome’s English–French model.
+
+[Extension website and download](https://dev.jcisio.com/baf/) · [Privacy policy](https://dev.jcisio.com/baf/privacy.html)
+
+## Load in Chrome
+
+Run `npm ci` and `npm run build` from this repository to build the extension into `dist/`. Use desktop Chrome 138 or newer on a device that supports its Translator API.
+
+1. Open `chrome://extensions` in Chrome.
+2. Enable **Developer mode**, choose **Load unpacked**, and select the **dist** folder.
+3. Open a Beast Academy classroom lesson or its book section and click the extension icon to start the scan. Keep the popup open until the scan finishes. If Chrome asks for a click to prepare the language model, choose **Préparer la traduction**.
+4. Hover over text to see French. Click to pin the translation. Press Escape or click × to close it. Tab to focus a translation target and Enter to pin it. A small **FR** button appears beside text that belongs to a site control.
+5. Scan again after scrolling or changing pages. Zoom in if the OCR misses small or stylized lettering.
+
+The extension uses temporary access to the active Beast Academy tab and processes the visible capture in memory. Book images and lesson text stay on your device. Video and audio are outside this version.
+
+Run `npm test` to check OCR region positioning, grouping, and duplicate handling.
