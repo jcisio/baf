@@ -20,4 +20,4 @@ Run `npm test` to check OCR region positioning, grouping, and duplicate handling
 
 ## Release a version
 
-Update the version in `extension/manifest.json`, commit it, and push a matching tag such as `v0.1.1`. GitHub Actions verifies the version, runs the tests, and publishes the built ZIP as a release asset.
+Update the version in `extension/manifest.json`, commit it, and push a matching tag such as `v0.1.1`. GitHub Actions verifies the version, runs the tests, and publishes the built ZIP as a release asset. To build an existing tag without a release, run **Build extension release** from the repository’s Actions tab and enter the tag.

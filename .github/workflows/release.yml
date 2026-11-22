@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -11,9 +17,12 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: refs/tags/${{ env.RELEASE_TAG }}
           persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -22,8 +31,8 @@ jobs:
       - name: Verify tag version
         run: |
           version=$(node -p "require('./extension/manifest.json').version")
-          if [[ "$GITHUB_REF_NAME" != "v$version" ]]; then
-            printf 'Tag %s must match the manifest version v%s.\n' "$GITHUB_REF_NAME" "$version" >&2
+          if [[ "$RELEASE_TAG" != "v$version" ]]; then
+            printf 'Tag %s must match the manifest version v%s.\n' "$RELEASE_TAG" "$version" >&2
             exit 1
           fi
       - name: Build and test
@@ -34,12 +43,12 @@ jobs:
       - name: Package extension
         working-directory: dist
         run: |
-          archive="$RUNNER_TEMP/beast-academy-en-francais-${GITHUB_REF_NAME#v}.zip"
+          archive="$RUNNER_TEMP/beast-academy-en-francais-${RELEASE_TAG#v}.zip"
           zip -qr "$archive" .
           unzip -tq "$archive"
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          archive="$RUNNER_TEMP/beast-academy-en-francais-${GITHUB_REF_NAME#v}.zip"
-          gh release create "$GITHUB_REF_NAME" "$archive" --verify-tag --generate-notes
+          archive="$RUNNER_TEMP/beast-academy-en-francais-${RELEASE_TAG#v}.zip"
+          gh release create "$RELEASE_TAG" "$archive" --verify-tag --generate-notes
