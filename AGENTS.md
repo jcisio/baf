@@ -21,4 +21,5 @@ Update the applicable spec in the same change as every code, UI, configuration, 
 - Stay on the current branch. When asked to commit, use a concise subject under 50 characters. Keep commits unsigned and omit attribution trailers.
 - Keep credentials, `node_modules/`, generated `dist/`, and local build ZIPs out of Git. The installable ZIP belongs in GitHub Releases.
 - Match release tags to the version in `extension/manifest.json`. Use **Deploy BAF website** with an existing release tag for website-only deployments.
+- Omit personal SSH aliases and hosting provider names from public documentation.
 - Keep the deployment key scoped to the BAF receiver. Never print or commit private keys or tokens. Never post Gerrit comments.

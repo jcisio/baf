@@ -2,7 +2,7 @@
 
 ## Website
 
-The [BAF website](https://dev.jcisio.com/baf/) is a static English-language site on `dh`. The homepage describes the extension, shows an English-to-French example, and gives manual Chrome installation instructions. Its download button links directly to the selected version's public GitHub Release ZIP. The website identifies the extension as independent and unofficial.
+The [BAF website](https://dev.jcisio.com/baf/) is a static English-language site. The homepage describes the extension, shows an English-to-French example, and gives manual Chrome installation instructions. Its download button links directly to the selected version's public GitHub Release ZIP. The website identifies the extension as independent and unofficial.
 
 The [privacy page](https://dev.jcisio.com/baf/privacy.html) describes on-device lesson processing, Chrome's language-model download, and standard hosting logs. The public privacy contact is `dev@jcisio.com`.
 
