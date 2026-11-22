@@ -8,6 +8,8 @@ The privacy policy is available in [English](https://dev.jcisio.com/baf/privacy.
 
 Each page declares its language. A language link in the header opens the same page in the other language. Installation and privacy navigation stay in the selected language.
 
+Every page has a localized footer link to the public GitHub source repository. The download buttons on the homepages point to the installable release ZIP.
+
 ## Layout and color
 
 - Keep the homepage compact. The site content is at most 53 rem wide with side gutters, body text defaults to 16 CSS pixels, and the homepage heading is at most 2.75 rem. Stack the hero columns on narrow screens.
@@ -31,5 +33,5 @@ GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `B
 
 - Run the release workflow and check that the tag matches the ZIP's root manifest and that GitHub serves the asset without sign-in. The [v0.1.1 release run](https://github.com/jcisio/baf/actions/runs/45065877452) used the manual trigger for the initial tag.
 - Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. Check that both download links point to the matching GitHub Release and all pages reference the expected stylesheet hash.
-- On each homepage and privacy page, use the language switch to visit its counterpart. Verify that the installation and privacy links stay in the selected language.
+- On each homepage and privacy page, use the language switch to visit its counterpart. Verify that the installation and privacy links stay in the selected language and that the footer opens the BAF source repository on GitHub.
 - For layout changes, verify that all four pages remain readable and that each document's scroll width equals its viewport width above 1400 CSS pixels.

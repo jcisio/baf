@@ -80,6 +80,7 @@ code { font-size: .95em; overflow-wrap: anywhere; }
 .policy h2 { margin-top: 1.5rem; }
 .site-footer { border-top: 1px solid var(--border); }
 .site-footer p { margin: 0; }
+.site-footer nav { flex-wrap: wrap; gap: .4rem 1rem; }
 @media (max-width: 40rem) {
   .hero { grid-template-columns: 1fr; }
 }
