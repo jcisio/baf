@@ -27,11 +27,13 @@ Chrome translates English into French on-device and may need to download the lan
 - Unzip the release and select the folder containing `manifest.json` with **Load unpacked** in `chrome://extensions`. Local builds use `npm ci` followed by `npm run build`.
 - The [Store screenshot](../../store-assets/store-screenshot.jpg) is a 1280 × 800 JPEG showing a translated comic speech bubble.
 - The Store package includes a 128 × 128 **BAF** icon. Reviewers can open the [guest demo lesson Delicious + &amp; −](https://beastacademy.com/demo/school/classroom/1/7/1511/1) and its book section without signing in. The [privacy policy](https://dev.jcisio.com/baf/privacy.html) covers local consent and lesson processing.
+- Version 0.1.2 was submitted for Chrome Web Store review with public visibility and automatic publication after approval. The extension ID is `cokhncjonhniclmcofefijjigechjnlm`.
 
 ## Verification
 
 - Run `npm test` to verify first-use consent and OCR coordinate mapping, grouping, and suppression of duplicate regions.
 - Run `npm run build` and check the ZIP for a root manifest, the 128 × 128 icon, and the bundled OCR assets.
+- Before submission, desktop Chrome confirmed first-use consent, exercise OCR, and a pinned French translation on page 18 of the guest demo book.
 - Try the toolbar with a ready Translator API and with Chrome requiring a language-model gesture. The former should start immediately, and the latter should offer **Préparer la traduction**.
 - On page 33 of **More Than 20, Part 1**, hover over a visible bubble, confirm that the French matches the English in that bubble, and click to pin it. Verify keyboard pinning and dismissal.
 - Scroll to a different set of bubbles and scan again. Confirm that targets follow the newly visible text and old targets disappear.
