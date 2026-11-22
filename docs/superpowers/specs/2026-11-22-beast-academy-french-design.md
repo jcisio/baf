@@ -1,25 +1,37 @@
 # French translation for Beast Academy
 
+The current manual-install release is [v0.1.1](https://github.com/jcisio/baf/releases/tag/v0.1.1). [Website and release behavior](2026-11-22-baf-website-and-release-design.md) is specified separately.
+
 ## What the learner does
 
-On a Beast Academy classroom page, clicking the Chrome extension icon starts translation. If Chrome requires a separate gesture to prepare the language model, the popup shows **Préparer la traduction**. Hovering over a supported block of English shows a French tooltip nearby. Clicking the block pins the tooltip. A close button or Escape dismisses it. Keyboard focus on an extension-provided translation target shows the tooltip, and Enter pins it.
+On a Beast Academy classroom page, clicking the Chrome extension icon starts translation. If Chrome requires a separate gesture to prepare the language model, the popup shows **Préparer la traduction**. Keep the popup open during scanning. It closes after placing the translation targets on the page.
 
-The extension keeps the original English, illustrations, and lesson layout visible. Translation targets sit over readable text regions. If a region is already interactive, the extension uses an adjacent translation target so the site control retains its click behavior.
+Hovering over a supported block of English shows a French tooltip nearby. Clicking the block pins it. A close button or Escape dismisses it. Keyboard focus on a translation target shows the tooltip, and Enter pins it. The original English, illustrations, and lesson layout remain visible. When the text is already interactive, an adjacent **FR** button lets the site control retain its click behavior.
 
 ## What it reads
 
-The extension uses visible page text where available. For illustrated book pages and exercise instructions rendered as pixels, it uses the visible tab capture and runs bundled Tesseract.js English OCR on the device. It uses the OCR bounding boxes to place hover targets, grouping nearby lines when they appear to belong to the same speech bubble or instruction block. Scrolling or changing the page invalidates targets from the prior view. The learner can scan the newly visible area from the same extension button.
+The extension reads visible document text and runs bundled Tesseract.js English OCR on a visible-tab capture. It crops to a recognized lesson dialog or book surface when available and otherwise uses the viewport. It prefers document text when OCR finds the same region and groups nearby OCR lines that appear to belong to a single text block. OCR coordinates account for the capture scale.
+
+Scrolling, resizing, or navigating clears targets from the previous view. The learner can scan the newly visible area from the same toolbar icon.
 
 Video, narration, and read-aloud audio are outside this version.
 
 ## Where processing happens
 
-This is a Chrome Manifest V3 extension. It uses temporary active-tab access after a user gesture and checks that the page is a Beast Academy classroom page before reading or capturing it. It captures the visible tab, crops to the lesson area locally, and keeps captures and results in memory for the active view.
+This Manifest V3 extension requires desktop Chrome 138 or later with the built-in Translator API available. Scans are limited to HTTPS pages under `/school/classroom/` on `beastacademy.com` or `www.beastacademy.com`. The extension uses `activeTab` and `scripting` after the user invokes it.
 
-Chrome's built-in Translator API translates English into French on supported desktop installations. Chrome may need an initial language model download. The extension displays a French status message while preparing the model and an explanation if translation is unavailable or the scan finds no readable text. The extension sends neither captured pixels nor lesson text to a remote service.
+Chrome translates English into French on-device and may need to download the language model on first use. The extension uses bundled OCR assets and keeps the capture, text, and results in memory. It displays the current scan stage in French and reports when the model is unavailable or no readable text was found. The extension sends neither captured pixels nor lesson text to a remote service.
 
-## How to verify it
+## Installation and Store preparation
 
+- Unzip the release and select the folder containing `manifest.json` with **Load unpacked** in `chrome://extensions`. Local builds use `npm ci` followed by `npm run build`.
+- The [Store screenshot](../../../store-assets/store-screenshot.jpg) is a 1280 × 800 JPEG showing a translated comic speech bubble.
+- Chrome Web Store submission remains pending. The requested **BAF** extension icon, first-use capture disclosure and consent, and removal of unused CDN fallback code from the OCR bundle are open items. Prepare reviewer instructions and a test lesson that reviewers can access for submission. The [privacy policy](https://dev.jcisio.com/baf/privacy.html) is already hosted.
+
+## Verification
+
+- Run `npm test` to verify OCR coordinate mapping, grouping, and suppression of duplicate regions.
+- Try the toolbar with a ready Translator API and with Chrome requiring a language-model gesture. The former should start immediately, and the latter should offer **Préparer la traduction**.
 - On page 33 of **More Than 20, Part 1**, hover over a visible bubble, confirm that the French matches the English in that bubble, and click to pin it. Verify keyboard pinning and dismissal.
 - Scroll to a different set of bubbles and scan again. Confirm that targets follow the newly visible text and old targets disappear.
 - On the same lesson's exercise instructions, confirm that hovering over the counting prompt shows its French translation. Check that lesson controls still respond to clicks.
