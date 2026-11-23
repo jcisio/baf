@@ -22,8 +22,8 @@
       <div>
         <h1>Lisez Beast Academy en français</h1>
         <p>Survolez une consigne ou une bulle en anglais pour afficher sa traduction. Cliquez sur le texte pour garder la traduction ouverte.</p>
-        <a class="button" href="@@RELEASE_URL@@">Télécharger le ZIP sur GitHub</a>
-        <p class="requirements">Version @@VERSION@@ · Chrome 138 ou ultérieur sur ordinateur · Installation manuelle</p>
+        <a class="button" href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm">Installer depuis le Chrome Web Store</a>
+        <p class="requirements">Chrome 138 ou ultérieur sur ordinateur</p>
       </div>
       <div class="example" aria-label="Exemple de traduction">
         <p class="original" lang="en">How many dots are in each row?</p>
@@ -32,12 +32,16 @@
     </section>
     <section class="guide" id="install">
       <h2>Installer l’extension dans Chrome</h2>
-      <ol>
-        <li>Téléchargez et décompressez le fichier ZIP.</li>
-        <li>Ouvrez <code>chrome://extensions</code> dans Chrome sur votre ordinateur et activez le <strong>Mode développeur</strong>.</li>
-        <li>Cliquez sur <strong>Charger l’extension non empaquetée</strong> et sélectionnez le dossier décompressé qui contient <code>manifest.json</code>.</li>
-        <li>Ouvrez une leçon Beast Academy et cliquez sur l’icône de l’extension. À la première utilisation, lisez l’avis de confidentialité, puis cliquez sur <strong lang="en">Allow and translate</strong> (« Autoriser et traduire »). Si Chrome demande de charger le modèle de langue, cliquez sur <strong>Préparer la traduction</strong>, puis attendez la fin de l’analyse.</li>
-      </ol>
+      <p>Ouvrez la fiche du Chrome Web Store à l’aide du bouton ci-dessus, puis cliquez sur <strong>Ajouter à Chrome</strong>.</p>
+      <details>
+        <summary>Installation manuelle</summary>
+        <ol>
+          <li><a href="@@RELEASE_URL@@">Téléchargez le ZIP sur GitHub (version @@VERSION@@)</a> et décompressez-le.</li>
+          <li>Ouvrez <code>chrome://extensions</code> dans Chrome sur votre ordinateur et activez le <strong>Mode développeur</strong>.</li>
+          <li>Cliquez sur <strong>Charger l’extension non empaquetée</strong> et sélectionnez le dossier décompressé qui contient <code>manifest.json</code>.</li>
+        </ol>
+      </details>
+      <p>Ouvrez une leçon Beast Academy et cliquez sur l’icône de l’extension. À la première utilisation, lisez l’avis de confidentialité, puis cliquez sur <strong lang="en">Allow and translate</strong> (« Autoriser et traduire »). Si Chrome demande de charger le modèle de langue, cliquez sur <strong>Préparer la traduction</strong>, puis attendez la fin de l’analyse.</p>
       <p>Survolez le texte détecté pour voir sa traduction. Cliquez dessus pour garder la traduction ouverte, puis appuyez sur Échap pour la fermer. Après avoir fait défiler la leçon ou changé de page, cliquez de nouveau sur l’icône de l’extension.</p>
       <p>L’extension s’utilise avec votre accès Beast Academy habituel. Elle traduit le texte visible des exercices et des livres, y compris celui des illustrations. Les captures d’écran et le texte des leçons restent sur votre appareil.</p>
       <p>Pour une fiche imprimable, consultez le <a href="math-glossary-en-fr.pdf">lexique mathématique anglais–français non officiel pour Beast Academy (PDF)</a>.</p>

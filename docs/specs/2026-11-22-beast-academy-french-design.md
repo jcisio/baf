@@ -1,6 +1,6 @@
 # French translation for Beast Academy
 
-The current manual-install release is [v0.1.2](https://github.com/jcisio/baf/releases/tag/v0.1.2). [Website and release behavior](2026-11-22-baf-website-and-release-design.md) is specified separately.
+Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm). The [v0.1.2 GitHub Release](https://github.com/jcisio/baf/releases/tag/v0.1.2) provides a ZIP for manual installation. [Website and release behavior](2026-11-22-baf-website-and-release-design.md) is specified separately.
 
 ## What the learner does
 
@@ -22,15 +22,16 @@ This Manifest V3 extension requires desktop Chrome 138 or later with the built-i
 
 Chrome translates English into French on-device and may need to download the language model on first use. The extension bundles the OCR worker, WebAssembly, and English recognition model. The build replaces Tesseract's CDN defaults with local asset paths and fails if those defaults change or a CDN reference remains. The extension stores consent locally and keeps the capture, lesson text, and results in memory. It displays the current scan stage in French and reports when the model is unavailable or no readable text was found. The extension sends neither captured pixels nor lesson text to a remote service.
 
-## Installation and Store preparation
+## Installation and Store listing
 
+- The extension is published in the Chrome Web Store. The extension ID is `cokhncjonhniclmcofefijjigechjnlm`.
 - Unzip the release and select the folder containing `manifest.json` with **Load unpacked** in `chrome://extensions`. Local builds use `npm ci` followed by `npm run build`.
 - The [Store screenshot](../../store-assets/store-screenshot.jpg) is a 1280 × 800 JPEG showing a translated comic speech bubble.
 - The Store package includes a 128 × 128 **BAF** icon. Reviewers can open the [guest demo lesson Delicious + &amp; −](https://beastacademy.com/demo/school/classroom/1/7/1511/1) and its book section without signing in. The [privacy policy](https://dev.jcisio.com/baf/privacy.html) covers local consent and lesson processing.
-- Version 0.1.2 was submitted for Chrome Web Store review with public visibility and automatic publication after approval. The extension ID is `cokhncjonhniclmcofefijjigechjnlm`.
 
 ## Verification
 
+- Open the public Store listing in desktop Chrome and confirm it offers **Add to Chrome** for the extension.
 - Run `npm test` to verify first-use consent and OCR coordinate mapping, grouping, and suppression of duplicate regions.
 - Run `npm run build` and check the ZIP for a root manifest, the 128 × 128 icon, and the bundled OCR assets.
 - Before submission, desktop Chrome confirmed first-use consent, exercise OCR, and a pinned French translation on page 18 of the guest demo book.

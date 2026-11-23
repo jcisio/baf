@@ -22,8 +22,8 @@
       <div>
         <h1>Read Beast Academy in French</h1>
         <p>Hover over an English instruction or speech bubble to see its French translation. Click to keep it open while you read.</p>
-        <a class="button" href="@@RELEASE_URL@@">Download ZIP from GitHub</a>
-        <p class="requirements">Version @@VERSION@@ · Desktop Chrome 138 or later · Manual installation</p>
+        <a class="button" href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm">Install from the Chrome Web Store</a>
+        <p class="requirements">Desktop Chrome 138 or later</p>
       </div>
       <div class="example" aria-label="Example translation">
         <p class="original" lang="en">How many dots are in each row?</p>
@@ -32,12 +32,16 @@
     </section>
     <section class="guide" id="install">
       <h2>Install in Chrome</h2>
-      <ol>
-        <li>Download and unzip the extension.</li>
-        <li>Open <code>chrome://extensions</code> in desktop Chrome and turn on <strong>Developer mode</strong>.</li>
-        <li>Choose <strong>Load unpacked</strong> and select the extracted folder that contains <code>manifest.json</code>.</li>
-        <li>Open a Beast Academy classroom lesson and click the extension icon. On first use, review the privacy notice and choose <strong>Allow and translate</strong> to start. If Chrome asks to prepare the language model, click <strong lang="fr">Préparer la traduction</strong> and wait for the scan.</li>
-      </ol>
+      <p>Open the Chrome Web Store listing using the button above and choose <strong>Add to Chrome</strong>.</p>
+      <details>
+        <summary>Manual installation</summary>
+        <ol>
+          <li><a href="@@RELEASE_URL@@">Download the ZIP from GitHub (version @@VERSION@@)</a> and extract it.</li>
+          <li>Open <code>chrome://extensions</code> in desktop Chrome and turn on <strong>Developer mode</strong>.</li>
+          <li>Choose <strong>Load unpacked</strong> and select the extracted folder that contains <code>manifest.json</code>.</li>
+        </ol>
+      </details>
+      <p>Open a Beast Academy classroom lesson and click the extension icon. On first use, review the privacy notice and choose <strong>Allow and translate</strong> to start. If Chrome asks to prepare the language model, click <strong lang="fr">Préparer la traduction</strong> and wait for the scan.</p>
       <p>Hover over detected text to see French. Click to pin it and press Escape to close it. Scan again after scrolling or changing pages.</p>
       <p>The extension uses your existing Beast Academy access. It translates visible text in exercises and books, including text in illustrations. Screenshots and lesson text stay on your device.</p>
       <p>For a printable reference, see the <a href="math-glossary-en-fr.pdf">unofficial English–French math glossary for Beast Academy (PDF)</a>.</p>
