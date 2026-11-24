@@ -2,7 +2,7 @@
 
 ## Website
 
-The BAF website is static and available in [English](https://dev.jcisio.com/baf/) and [French](https://dev.jcisio.com/baf/fr.html). Each homepage describes the extension, shows an English-to-French example, and uses the [Chrome Web Store listing](https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm) as the primary install action. An expandable manual installation section on each homepage links to the same selected version's public GitHub Release ZIP and explains how to load it unpacked. The website identifies the extension as independent and unofficial.
+The BAF website is static and available in [English](https://dev.jcisio.com/baf/) and [French](https://dev.jcisio.com/baf/fr.html). Each homepage describes the extension, shows an English-to-French example, and uses the [Chrome Web Store listing](https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm) as the primary install action. An expandable Chrome guide links to the selected GitHub Release ZIP and explains how to load it unpacked. A link beside the primary install action takes Firefox users to a separate guide for desktop Firefox 153 or later. It links to the same release's Firefox ZIP, explains how to extract and temporarily load its manifest, and tells users to reload it after restarting Firefox. The website identifies the extension as independent and unofficial.
 
 Both homepages share seven light-mode screenshots and a short, silent video recorded in desktop Chrome’s Test profile. The video uses standard playback controls and the numbered instructions and image descriptions are localized. The captures show Chrome in English. The tutorial covers adding the Store extension, pinning BAF, reviewing first-use consent, and opening a translation in the public Beast Academy demo exercise. A separate book walkthrough shows the same scrolled comic panel before and after a rescan. The extension scans visible content, so readers click BAF again after scrolling to newly visible text or changing pages. All four headers use the extension’s red icon, which also identifies the toolbar button in the written guides.
 
@@ -29,7 +29,7 @@ The release job checks out the exact tag, checks the manifest version, installs 
 
 ## Deploy the website
 
-After the release job succeeds, **Deploy BAF website** publishes the site. It can also run manually with an existing GitHub Release tag for website-only changes. The deploy job verifies the public GitHub asset, renders the selected version and download URL into the manual installation section on each homepage, and adds the stylesheet content hash to all four pages.
+After the release job succeeds, **Deploy BAF website** publishes the site. It can also run manually with an existing GitHub Release tag for website-only changes. The deploy job verifies the public Chrome and Firefox assets and renders their version and download URLs into both homepages. Deployments with the Chrome-only tags `v0.1.1` and `v0.1.2` verify only the Chrome ZIP and omit the Firefox guide and its shortcut. The deploy job adds the stylesheet content hash to all four pages.
 
 The JPEG screenshots and H.264 MP4 live in `site/tutorial/`. The site icon is copied from `extension/icons/baf-48.png`. The media load from relative URLs during local previews. The deploy job embeds them as data URLs in the rendered pages so they ship in the existing deployment archive. The deploy job checks every rendered HTML file against the receiver’s 1 MiB limit before upload.
 
@@ -38,7 +38,7 @@ GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `B
 ## Verification
 
 - Run the release workflow and check that both assets appear on the same release and that GitHub serves them without sign-in. Check that both root manifests match the tag and that the Firefox ZIP contains the Bergamot worker and English–French model. Rerun the workflow to check that it accepts the two matching assets. The [v0.1.1 release run](https://github.com/jcisio/baf/actions/runs/45065877452) used the manual trigger for the initial Chrome release.
-- Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. SSH upload and HTTPS verification use timeouts so an unresponsive connection cannot hold the deployment slot indefinitely. Check that both primary install buttons open the same Store listing, both manual installation links point to the matching GitHub Release ZIP, and all pages reference the expected stylesheet hash.
+- Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. SSH upload and HTTPS verification use timeouts so an unresponsive connection cannot hold the deployment slot indefinitely. On each homepage, follow the Firefox shortcut, check that both download links use the selected release tag and the correct browser filenames, and verify the temporary installation and restart instructions. Check that the primary install buttons open the same Chrome Store listing and that all four pages reference the expected stylesheet hash.
 - On each homepage and privacy page, use the language switch to visit its counterpart. Verify that the installation and privacy links stay in the selected language and that the footer opens the BAF source repository on GitHub.
 - On both homepages, verify that the glossary link opens the same two-page A4 landscape PDF, labeled unofficial and with the corrected explanation of congruent figures.
 - On both homepages, check that all seven tutorial screenshots load, the video plays and seeks, and the public demo link opens the exercise. In desktop Chrome, open the book from the demo, scan, scroll inside the viewer, click BAF again, and open a translation in the newly visible panel. Check that the deployment renderer embeds the same seven screenshots and video on both homepages and the extension’s own icon on all four pages.
@@ -46,7 +46,9 @@ GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `B
 
 ### Dual-package workflow verification on November 24, 2026
 
-The workflow passed linting and its test, build, and archive steps ran locally with Node 24 in a clean directory. A simulated GitHub release verified creation with both packages, reuse of matching packages, upload of a missing Firefox package, and rejection of drafts and mismatches. The dual-package release still needs a run on GitHub from a matching tag.
+The workflow passed linting and its test, build, and archive steps ran locally with Node 24 in a clean directory. A simulated GitHub release verified creation with both packages, reuse of matching packages, upload of a missing Firefox package, and rejection of drafts and mismatches. The [v0.1.3 release run](https://github.com/jcisio/baf/actions/runs/45487515721) published both ZIPs on the same release. Both public downloads matched their GitHub SHA-256 checksums and contained a root manifest with version 0.1.3.
+
+The website renderer verified both download URLs for v0.1.3 and produced a Chrome-only site for v0.1.2. In Chrome, both staged homepages opened the Firefox guide from its shortcut and linked to the correct ZIP for each browser. All four staged pages had no horizontal overflow at 375, 1440, and 1920 CSS pixels.
 
 ### Tutorial verification on November 24, 2026
 

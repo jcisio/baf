@@ -24,6 +24,7 @@
         <p>Survolez une consigne ou une bulle en anglais pour afficher sa traduction. Cliquez sur le texte pour garder la traduction ouverte.</p>
         <a class="button" href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm">Installer depuis le Chrome Web Store</a>
         <p class="requirements">Chrome 138 ou ultérieur sur ordinateur</p>
+        <p class="requirements"><a href="#install-firefox">Vous utilisez Firefox ? Voir l’installation temporaire</a></p>
       </div>
       <div class="example" aria-label="Exemple de traduction">
         <p class="original" lang="en">How many dots are in each row?</p>
@@ -81,7 +82,7 @@
         </li>
       </ol>
       <details>
-        <summary>Installation manuelle</summary>
+        <summary>Installation manuelle dans Chrome</summary>
         <ol>
           <li><a href="@@RELEASE_URL@@">Téléchargez le ZIP sur GitHub (version @@VERSION@@)</a> et décompressez-le.</li>
           <li>Ouvrez <code>chrome://extensions</code> dans Chrome sur votre ordinateur et activez le <strong>Mode développeur</strong>.</li>
@@ -90,6 +91,17 @@
       </details>
       <p>L’extension s’utilise avec votre accès Beast Academy habituel. Elle traduit le texte visible des exercices et des livres, y compris celui des illustrations. Les captures d’écran et le texte des leçons restent sur votre appareil.</p>
       <p>Pour une fiche imprimable, consultez le <a href="math-glossary-en-fr.pdf">lexique mathématique anglais–français non officiel pour Beast Academy (PDF)</a>.</p>
+    </section>
+    <section class="guide" id="install-firefox">
+      <h2>Installer temporairement l’extension dans Firefox</h2>
+      <p>Firefox 153 ou ultérieur sur ordinateur.</p>
+      <ol>
+        <li><a href="@@FIREFOX_RELEASE_URL@@">Téléchargez le ZIP pour Firefox (version @@VERSION@@)</a> et décompressez-le.</li>
+        <li>Dans Firefox, saisissez <code>about:debugging#/runtime/this-firefox</code> dans la barre d’adresse.</li>
+        <li>Cliquez sur <strong>Charger un module complémentaire temporaire…</strong> et sélectionnez <code>manifest.json</code> dans le dossier décompressé.</li>
+        <li>Ouvrez une leçon Beast Academy et choisissez <strong>Beast Academy en français</strong> dans le menu <strong>Extensions</strong>. À la première utilisation, choisissez <strong lang="en">Allow and translate</strong> (« Autoriser et traduire »).</li>
+      </ol>
+      <p>Après avoir redémarré Firefox, chargez de nouveau <code>manifest.json</code> depuis le même dossier.</p>
     </section>
   </main>
   <footer class="wrap site-footer">

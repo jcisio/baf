@@ -24,6 +24,7 @@
         <p>Hover over an English instruction or speech bubble to see its French translation. Click to keep it open while you read.</p>
         <a class="button" href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm">Install from the Chrome Web Store</a>
         <p class="requirements">Desktop Chrome 138 or later</p>
+        <p class="requirements"><a href="#install-firefox">Using Firefox? See temporary installation</a></p>
       </div>
       <div class="example" aria-label="Example translation">
         <p class="original" lang="en">How many dots are in each row?</p>
@@ -80,7 +81,7 @@
         </li>
       </ol>
       <details>
-        <summary>Manual installation</summary>
+        <summary>Manual installation in Chrome</summary>
         <ol>
           <li><a href="@@RELEASE_URL@@">Download the ZIP from GitHub (version @@VERSION@@)</a> and extract it.</li>
           <li>Open <code>chrome://extensions</code> in desktop Chrome and turn on <strong>Developer mode</strong>.</li>
@@ -89,6 +90,17 @@
       </details>
       <p>The extension uses your existing Beast Academy access. It translates visible text in exercises and books, including text in illustrations. Screenshots and lesson text stay on your device.</p>
       <p>For a printable reference, see the <a href="math-glossary-en-fr.pdf">unofficial English–French math glossary for Beast Academy (PDF)</a>.</p>
+    </section>
+    <section class="guide" id="install-firefox">
+      <h2>Install temporarily in Firefox</h2>
+      <p>Desktop Firefox 153 or later.</p>
+      <ol>
+        <li><a href="@@FIREFOX_RELEASE_URL@@">Download the Firefox ZIP (version @@VERSION@@)</a> and extract it.</li>
+        <li>In Firefox, type <code>about:debugging#/runtime/this-firefox</code> in the address bar.</li>
+        <li>Click <strong>Load Temporary Add-on…</strong> and select <code>manifest.json</code> from the extracted folder.</li>
+        <li>Open a Beast Academy lesson and choose <strong>Beast Academy en français</strong> from the <strong>Extensions</strong> menu. On first use, choose <strong>Allow and translate</strong>.</li>
+      </ol>
+      <p>After restarting Firefox, load <code>manifest.json</code> again from the same folder.</p>
     </section>
   </main>
   <footer class="wrap site-footer">

@@ -33,7 +33,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Prepare site and verify the GitHub download
+      - name: Prepare site and verify the GitHub downloads
+        shell: bash
         run: |
           if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             printf '%s\n' 'Expected a release tag such as v0.1.1.' >&2
@@ -43,6 +44,16 @@ jobs:
           archive="beast-academy-en-francais-$version.zip"
           release_url="https://github.com/$GITHUB_REPOSITORY/releases/download/$RELEASE_TAG/$archive"
           curl --fail --silent --show-error --location --head --retry 3 --max-time 30 "$release_url" >/dev/null
+          firefox_url="${release_url%.zip}-firefox.zip"
+          firefox_content=()
+          case "$RELEASE_TAG" in
+            v0.1.1|v0.1.2)
+              firefox_content=(-e '/href="#install-firefox"/d' -e '/<section .*id="install-firefox"/,/<\/section>/d')
+              ;;
+            *)
+              curl --fail --silent --show-error --location --head --retry 3 --max-time 30 "$firefox_url" >/dev/null
+              ;;
+          esac
           deploy_dir="$RUNNER_TEMP/baf"
           mkdir "$deploy_dir"
           css_version=$(sha256sum site/site.css | cut -c 1-12)
@@ -61,7 +72,8 @@ jobs:
             embed_media site/tutorial/chrome-walkthrough.mp4 video/mp4
           } > "$media"
           for page in index.html fr.html privacy.html privacy-fr.html; do
-            sed -e "$stylesheet" -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" \
+            sed "${firefox_content[@]}" -e "$stylesheet" -e "s/@@VERSION@@/$version/g" \
+              -e "s|@@RELEASE_URL@@|$release_url|g" -e "s|@@FIREFOX_RELEASE_URL@@|$firefox_url|g" \
               -f "$media" \
               "site/$page" > "$deploy_dir/$page"
             if [[ $(wc -c < "$deploy_dir/$page") -gt 1048576 ]]; then
