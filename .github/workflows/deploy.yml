@@ -47,16 +47,27 @@ jobs:
           mkdir "$deploy_dir"
           css_version=$(sha256sum site/site.css | cut -c 1-12)
           stylesheet="s|href=\"site.css\"|href=\"site.css?v=$css_version\"|"
-          screenshots="$RUNNER_TEMP/baf-screenshots.sed"
-          # Embed tutorial screenshots so the SSH receiver can keep its fixed file allowlist.
-          for image in site/tutorial/*.jpg; do
-            printf 's|src="%s"|src="data:image/jpeg;base64,%s"|g\n' \
-              "${image#site/}" "$(base64 < "$image" | tr -d '\n')"
-          done > "$screenshots"
+          media="$RUNNER_TEMP/baf-media.sed"
+          # Embed the media within the SSH receiver's existing file allowlist.
+          embed_media() {
+            printf 's|src="%s"|src="data:%s;base64,%s"|g\n' \
+              "${1#site/}" "$2" "$(base64 < "$1" | tr -d '\n')"
+          }
+          {
+            for image in site/tutorial/*.jpg; do
+              embed_media "$image" image/jpeg
+            done
+            embed_media site/baf-icon.png image/png
+            embed_media site/tutorial/chrome-walkthrough.mp4 video/mp4
+          } > "$media"
           for page in index.html fr.html privacy.html privacy-fr.html; do
             sed -e "$stylesheet" -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" \
-              -f "$screenshots" \
+              -f "$media" \
               "site/$page" > "$deploy_dir/$page"
+            if [[ $(wc -c < "$deploy_dir/$page") -gt 1048576 ]]; then
+              printf '%s\n' "Rendered $page exceeds the 1 MiB upload limit." >&2
+              exit 1
+            fi
           done
           cp site/site.css site/math-glossary-en-fr.pdf "$deploy_dir/"
       - name: Upload over SSH

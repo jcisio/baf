@@ -10,7 +10,7 @@
 </head>
 <body>
   <header class="site-header wrap">
-    <a class="brand" href="fr.html"><span class="monogram" aria-hidden="true">BAF</span> Beast Academy en français</a>
+    <a class="brand" href="fr.html"><img class="monogram" src="baf-icon.png" width="36" height="36" alt=""> Beast Academy en français</a>
     <nav aria-label="Navigation principale">
       <a href="#install">Installation</a>
       <a href="privacy-fr.html">Confidentialité</a>
@@ -32,31 +32,34 @@
     </section>
     <section class="guide" id="install">
       <h2>Installer l’extension dans Chrome</h2>
-      <p>Les captures d’écran montrent Chrome en anglais.</p>
+      <h3 id="walkthrough">Voir le tutoriel dans Chrome</h3>
+      <video class="walkthrough" src="tutorial/chrome-walkthrough.mp4" width="912" height="624" controls playsinline preload="metadata" aria-labelledby="walkthrough"></video>
+      <p class="walkthrough-note">Vidéo sans son. Les étapes sont détaillées ci-dessous.</p>
+      <p>La vidéo et les captures d’écran montrent Chrome en anglais.</p>
       <ol class="tutorial-steps">
         <li>
           Ouvrez la <a href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm">fiche de Beast Academy en français</a> dans Chrome sur votre ordinateur, puis cliquez sur <strong>Ajouter à Chrome</strong>.
-          <img src="tutorial/store.jpg" width="1320" height="225" loading="lazy" alt="Fiche du Chrome Web Store avec le bouton bleu Ajouter à Chrome à droite.">
+          <img src="tutorial/store.jpg" width="1175" height="200" loading="lazy" alt="Fiche du Chrome Web Store avec le bouton bleu Ajouter à Chrome à droite.">
         </li>
         <li>
           Cliquez sur <strong>Ajouter l’extension</strong> dans la fenêtre de confirmation de Chrome.
-          <img src="tutorial/confirm.jpg" width="896" height="248" loading="lazy" alt="Fenêtre de confirmation de Chrome avec les boutons Annuler et Ajouter l’extension.">
+          <img src="tutorial/confirm.jpg" width="448" height="124" loading="lazy" alt="Fenêtre de confirmation de Chrome avec les boutons Annuler et Ajouter l’extension.">
         </li>
         <li>
-          Cliquez sur le bouton <strong>Extensions</strong> en forme de pièce de puzzle, à côté de la barre d’adresse. Cliquez sur l’<strong>épingle</strong> à côté de Beast Academy en français pour garder l’icône rouge <strong>BAF</strong> dans la barre d’outils.
-          <img src="tutorial/pin.jpg" width="640" height="322" loading="lazy" alt="L’épingle se trouve juste à droite de Beast Academy en français dans le menu Extensions.">
+          Cliquez sur le bouton <strong>Extensions</strong> en forme de pièce de puzzle, à côté de la barre d’adresse. Cliquez sur l’<strong>épingle</strong> à côté de Beast Academy en français pour garder l’icône rouge <strong>BAF</strong> <img class="toolbar-icon" src="baf-icon.png" width="20" height="20" alt=""> dans la barre d’outils.
+          <img src="tutorial/pin.jpg" width="331" height="198" loading="lazy" alt="L’épingle se trouve juste à droite de Beast Academy en français dans le menu Extensions.">
         </li>
       </ol>
       <h3>Traduire un exercice</h3>
       <ol class="tutorial-steps">
         <li>
           Ouvrez un exercice dans votre classe Beast Academy ou essayez l’<a href="https://beastacademy.com/demo/school/classroom/1/7/1511/1">exercice de démonstration public</a>. Cliquez sur <strong>BAF</strong> dans la barre d’outils. À la première utilisation, lisez l’avis de confidentialité et choisissez <strong lang="en">Allow and translate</strong> (« Autoriser et traduire »).
-          <img src="tutorial/consent.jpg" width="200" height="160" loading="lazy" alt="L’avis de confidentialité s’ouvre sous l’icône BAF et propose d’autoriser la traduction ou d’annuler.">
+          <img src="tutorial/consent.jpg" width="350" height="335" loading="lazy" alt="L’avis de confidentialité s’ouvre sous l’icône BAF et propose d’autoriser la traduction ou d’annuler.">
         </li>
         <li>Si Chrome le demande, cliquez sur <strong>Préparer la traduction</strong> pour charger le modèle de langue. Gardez la fenêtre de l’extension ouverte jusqu’à la fin de l’analyse.</li>
         <li>
           Survolez une consigne en anglais pour voir sa traduction. Cliquez sur le texte pour garder la traduction ouverte ou appuyez sur <kbd>Échap</kbd> pour la fermer.
-          <img src="tutorial/translation.jpg" width="1120" height="335" loading="lazy" alt="Une traduction française reste affichée sous la consigne en anglais dans l’exercice de démonstration.">
+          <img src="tutorial/translation.jpg" width="635" height="208" loading="lazy" alt="Une traduction française reste affichée sous la consigne en anglais dans l’exercice de démonstration.">
         </li>
       </ol>
       <h3>Traduire une leçon dans le livre</h3>
@@ -65,14 +68,14 @@
         <li>
           Faites défiler le livre jusqu’au passage suivant. BAF analyse uniquement le contenu visible. Cliquez de nouveau sur <strong>BAF</strong> chaque fois que vous faites défiler le livre pour afficher du nouveau texte.
           <figure>
-            <img src="tutorial/book-before.jpg" width="1200" height="434" loading="lazy" alt="Une nouvelle case de BD avec des bulles en anglais apparaît après le défilement.">
+            <img src="tutorial/book-before.jpg" width="920" height="333" loading="lazy" alt="Une nouvelle case de BD avec des bulles en anglais apparaît après le défilement.">
             <figcaption>Après le défilement, avant de relancer l’analyse.</figcaption>
           </figure>
         </li>
         <li>
           Attendez la fin de l’analyse, puis survolez une bulle qui vient d’apparaître pour la lire en français. Répétez l’opération après avoir fait défiler le livre ou changé de page.
           <figure>
-            <img src="tutorial/book-after.jpg" width="1200" height="434" loading="lazy" alt="La même case de BD avec une traduction française sous la bulle en anglais.">
+            <img src="tutorial/book-after.jpg" width="920" height="333" loading="lazy" alt="La même case de BD avec une traduction française sous la bulle en anglais.">
             <figcaption>Après la nouvelle analyse et l’affichage de la traduction.</figcaption>
           </figure>
         </li>

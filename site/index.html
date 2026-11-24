@@ -10,7 +10,7 @@
 </head>
 <body>
   <header class="site-header wrap">
-    <a class="brand" href="./"><span class="monogram" aria-hidden="true">BAF</span> Beast Academy en français</a>
+    <a class="brand" href="./"><img class="monogram" src="baf-icon.png" width="36" height="36" alt=""> Beast Academy en français</a>
     <nav aria-label="Main navigation">
       <a href="#install">Install</a>
       <a href="privacy.html">Privacy</a>
@@ -32,30 +32,33 @@
     </section>
     <section class="guide" id="install">
       <h2>Install in Chrome</h2>
+      <h3 id="walkthrough">Watch the Chrome walkthrough</h3>
+      <video class="walkthrough" src="tutorial/chrome-walkthrough.mp4" width="912" height="624" controls playsinline preload="metadata" aria-labelledby="walkthrough"></video>
+      <p class="walkthrough-note">Silent video. The written steps are below.</p>
       <ol class="tutorial-steps">
         <li>
           Open the <a href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm">Beast Academy en français listing</a> in desktop Chrome and click <strong>Add to Chrome</strong>.
-          <img src="tutorial/store.jpg" width="1320" height="225" loading="lazy" alt="Chrome Web Store listing with the blue Add to Chrome button on the right.">
+          <img src="tutorial/store.jpg" width="1175" height="200" loading="lazy" alt="Chrome Web Store listing with the blue Add to Chrome button on the right.">
         </li>
         <li>
           Click <strong>Add extension</strong> in Chrome’s confirmation dialog.
-          <img src="tutorial/confirm.jpg" width="896" height="248" loading="lazy" alt="Chrome confirmation dialog with Cancel and Add extension buttons.">
+          <img src="tutorial/confirm.jpg" width="448" height="124" loading="lazy" alt="Chrome confirmation dialog with Cancel and Add extension buttons.">
         </li>
         <li>
-          Click the puzzle-piece <strong>Extensions</strong> button next to the address bar. Click the <strong>pin</strong> next to Beast Academy en français so the red <strong>BAF</strong> icon stays in the toolbar.
-          <img src="tutorial/pin.jpg" width="640" height="322" loading="lazy" alt="The pin control is immediately to the right of Beast Academy en français in the Extensions menu.">
+          Click the puzzle-piece <strong>Extensions</strong> button next to the address bar. Click the <strong>pin</strong> next to Beast Academy en français so the red <strong>BAF</strong> icon <img class="toolbar-icon" src="baf-icon.png" width="20" height="20" alt=""> stays in the toolbar.
+          <img src="tutorial/pin.jpg" width="331" height="198" loading="lazy" alt="The pin control is immediately to the right of Beast Academy en français in the Extensions menu.">
         </li>
       </ol>
       <h3>Translate an exercise</h3>
       <ol class="tutorial-steps">
         <li>
           Open an exercise in your Beast Academy classroom, or try the <a href="https://beastacademy.com/demo/school/classroom/1/7/1511/1">public demo exercise</a>. Click <strong>BAF</strong> in the toolbar. On first use, read the privacy notice and choose <strong>Allow and translate</strong>.
-          <img src="tutorial/consent.jpg" width="200" height="160" loading="lazy" alt="The first-use privacy notice opens underneath the BAF icon and offers Allow and translate or Cancel.">
+          <img src="tutorial/consent.jpg" width="350" height="335" loading="lazy" alt="The first-use privacy notice opens underneath the BAF icon and offers Allow and translate or Cancel.">
         </li>
         <li>If prompted, click <strong lang="fr">Préparer la traduction</strong> to let Chrome prepare its language model. Keep the popup open until scanning finishes.</li>
         <li>
           Hover over an English instruction to see it in French. Click the text to pin the translation, or press <kbd>Esc</kbd> to close it.
-          <img src="tutorial/translation.jpg" width="1120" height="335" loading="lazy" alt="A pinned French translation appears beneath the English instruction in the demo exercise.">
+          <img src="tutorial/translation.jpg" width="635" height="208" loading="lazy" alt="A pinned French translation appears beneath the English instruction in the demo exercise.">
         </li>
       </ol>
       <h3>Translate a book lesson</h3>
@@ -64,14 +67,14 @@
         <li>
           Scroll inside the book viewer to the next section you want to read. BAF scans only what’s visible, so click <strong>BAF</strong> again after scrolling to new text.
           <figure>
-            <img src="tutorial/book-before.jpg" width="1200" height="434" loading="lazy" alt="A newly visible comic panel with English speech bubbles after scrolling.">
+            <img src="tutorial/book-before.jpg" width="920" height="333" loading="lazy" alt="A newly visible comic panel with English speech bubbles after scrolling.">
             <figcaption>After scrolling, before scanning again.</figcaption>
           </figure>
         </li>
         <li>
           Wait for the scan, then hover over a newly visible speech bubble to read it in French. Repeat after you scroll to more text or change pages.
           <figure>
-            <img src="tutorial/book-after.jpg" width="1200" height="434" loading="lazy" alt="The same comic panel with a French translation below the English speech bubble.">
+            <img src="tutorial/book-after.jpg" width="920" height="333" loading="lazy" alt="The same comic panel with a French translation below the English speech bubble.">
             <figcaption>After scanning again and opening a translation.</figcaption>
           </figure>
         </li>
