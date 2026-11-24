@@ -75,6 +75,19 @@ h2 { font-size: 1.4rem; margin: 0 0 .75rem; }
 .guide > p, .guide ol { margin-block: .75rem 0; }
 .guide ol { padding-left: 1.25rem; }
 .guide li + li { margin-top: .35rem; }
+.guide h3 { margin: 1.75rem 0 .5rem; font-size: 1.15rem; }
+.guide .tutorial-steps li + li { margin-top: 1rem; }
+.tutorial-steps img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: .55rem;
+  border: 1px solid var(--border);
+  border-radius: .55rem;
+}
+.tutorial-steps figure { margin: 0; }
+.tutorial-steps figcaption { margin-top: .35rem; font-size: .9rem; color: var(--muted); }
+.guide details { margin-top: 1.5rem; }
 code { font-size: .95em; overflow-wrap: anywhere; }
 .policy { padding-block: 2rem; }
 .policy h2 { margin-top: 1.5rem; }

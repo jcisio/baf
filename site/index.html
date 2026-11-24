@@ -32,7 +32,50 @@
     </section>
     <section class="guide" id="install">
       <h2>Install in Chrome</h2>
-      <p>Open the Chrome Web Store listing using the button above and choose <strong>Add to Chrome</strong>.</p>
+      <ol class="tutorial-steps">
+        <li>
+          Open the <a href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm">Beast Academy en français listing</a> in desktop Chrome and click <strong>Add to Chrome</strong>.
+          <img src="tutorial/store.jpg" width="1320" height="225" loading="lazy" alt="Chrome Web Store listing with the blue Add to Chrome button on the right.">
+        </li>
+        <li>
+          Click <strong>Add extension</strong> in Chrome’s confirmation dialog.
+          <img src="tutorial/confirm.jpg" width="896" height="248" loading="lazy" alt="Chrome confirmation dialog with Cancel and Add extension buttons.">
+        </li>
+        <li>
+          Click the puzzle-piece <strong>Extensions</strong> button next to the address bar. Click the <strong>pin</strong> next to Beast Academy en français so the red <strong>BAF</strong> icon stays in the toolbar.
+          <img src="tutorial/pin.jpg" width="640" height="322" loading="lazy" alt="The pin control is immediately to the right of Beast Academy en français in the Extensions menu.">
+        </li>
+      </ol>
+      <h3>Translate an exercise</h3>
+      <ol class="tutorial-steps">
+        <li>
+          Open an exercise in your Beast Academy classroom, or try the <a href="https://beastacademy.com/demo/school/classroom/1/7/1511/1">public demo exercise</a>. Click <strong>BAF</strong> in the toolbar. On first use, read the privacy notice and choose <strong>Allow and translate</strong>.
+          <img src="tutorial/consent.jpg" width="200" height="160" loading="lazy" alt="The first-use privacy notice opens underneath the BAF icon and offers Allow and translate or Cancel.">
+        </li>
+        <li>If prompted, click <strong lang="fr">Préparer la traduction</strong> to let Chrome prepare its language model. Keep the popup open until scanning finishes.</li>
+        <li>
+          Hover over an English instruction to see it in French. Click the text to pin the translation, or press <kbd>Esc</kbd> to close it.
+          <img src="tutorial/translation.jpg" width="1120" height="335" loading="lazy" alt="A pinned French translation appears beneath the English instruction in the demo exercise.">
+        </li>
+      </ol>
+      <h3>Translate a book lesson</h3>
+      <ol class="tutorial-steps">
+        <li>Click the <strong>book icon</strong> above the demo exercise to open the lesson. Click <strong>BAF</strong>, wait for the scan, then hover over a speech bubble.</li>
+        <li>
+          Scroll inside the book viewer to the next section you want to read. BAF scans only what’s visible, so click <strong>BAF</strong> again after scrolling to new text.
+          <figure>
+            <img src="tutorial/book-before.jpg" width="1200" height="434" loading="lazy" alt="A newly visible comic panel with English speech bubbles after scrolling.">
+            <figcaption>After scrolling, before scanning again.</figcaption>
+          </figure>
+        </li>
+        <li>
+          Wait for the scan, then hover over a newly visible speech bubble to read it in French. Repeat after you scroll to more text or change pages.
+          <figure>
+            <img src="tutorial/book-after.jpg" width="1200" height="434" loading="lazy" alt="The same comic panel with a French translation below the English speech bubble.">
+            <figcaption>After scanning again and opening a translation.</figcaption>
+          </figure>
+        </li>
+      </ol>
       <details>
         <summary>Manual installation</summary>
         <ol>
@@ -41,8 +84,6 @@
           <li>Choose <strong>Load unpacked</strong> and select the extracted folder that contains <code>manifest.json</code>.</li>
         </ol>
       </details>
-      <p>Open a Beast Academy classroom lesson and click the extension icon. On first use, review the privacy notice and choose <strong>Allow and translate</strong> to start. If Chrome asks to prepare the language model, click <strong lang="fr">Préparer la traduction</strong> and wait for the scan.</p>
-      <p>Hover over detected text to see French. Click to pin it and press Escape to close it. Scan again after scrolling or changing pages.</p>
       <p>The extension uses your existing Beast Academy access. It translates visible text in exercises and books, including text in illustrations. Screenshots and lesson text stay on your device.</p>
       <p>For a printable reference, see the <a href="math-glossary-en-fr.pdf">unofficial English–French math glossary for Beast Academy (PDF)</a>.</p>
     </section>

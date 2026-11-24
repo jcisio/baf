@@ -47,8 +47,15 @@ jobs:
           mkdir "$deploy_dir"
           css_version=$(sha256sum site/site.css | cut -c 1-12)
           stylesheet="s|href=\"site.css\"|href=\"site.css?v=$css_version\"|"
+          screenshots="$RUNNER_TEMP/baf-screenshots.sed"
+          # Embed tutorial screenshots so the SSH receiver can keep its fixed file allowlist.
+          for image in site/tutorial/*.jpg; do
+            printf 's|src="%s"|src="data:image/jpeg;base64,%s"|g\n' \
+              "${image#site/}" "$(base64 < "$image" | tr -d '\n')"
+          done > "$screenshots"
           for page in index.html fr.html privacy.html privacy-fr.html; do
             sed -e "$stylesheet" -e "s/@@VERSION@@/$version/g" -e "s|@@RELEASE_URL@@|$release_url|g" \
+              -f "$screenshots" \
               "site/$page" > "$deploy_dir/$page"
           done
           cp site/site.css site/math-glossary-en-fr.pdf "$deploy_dir/"

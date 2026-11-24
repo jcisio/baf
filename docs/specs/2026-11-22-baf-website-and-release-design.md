@@ -4,6 +4,8 @@
 
 The BAF website is static and available in [English](https://dev.jcisio.com/baf/) and [French](https://dev.jcisio.com/baf/fr.html). Each homepage describes the extension, shows an English-to-French example, and uses the [Chrome Web Store listing](https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm) as the primary install action. An expandable manual installation section on each homepage links to the same selected version's public GitHub Release ZIP and explains how to load it unpacked. The website identifies the extension as independent and unofficial.
 
+Both homepages share a screenshot tutorial captured in desktop Chrome’s Test profile. The numbered instructions and image descriptions are localized, and the screenshots show Chrome in English. The tutorial covers adding the Store extension, pinning BAF, reviewing first-use consent, and opening a translation in the public Beast Academy demo exercise. A separate book walkthrough shows the same scrolled comic panel before and after a rescan. The extension scans visible content, so readers click BAF again after scrolling to newly visible text or changing pages.
+
 The privacy policy is available in [English](https://dev.jcisio.com/baf/privacy.html) and [French](https://dev.jcisio.com/baf/privacy-fr.html). Both versions describe first-use consent, local storage of the consent choice, active-tab checks, on-device lesson processing, Chrome's language-model download, and standard hosting logs. The public privacy contact is `dev@jcisio.com`.
 
 Each page declares its language. A language link in the header opens the same page in the other language. Installation and privacy navigation stay in the selected language.
@@ -29,6 +31,8 @@ The release job checks out the exact tag, checks the manifest version, installs 
 
 After the release job succeeds, **Deploy BAF website** publishes the site. It can also run manually with an existing GitHub Release tag for website-only changes. The deploy job verifies the public GitHub asset, renders the selected version and download URL into the manual installation section on each homepage, and adds the stylesheet content hash to all four pages.
 
+The JPEG screenshots live in `site/tutorial/` and load from relative URLs during local previews. The deploy job embeds them as image data URLs in the rendered homepages so they ship in the existing deployment archive. Each homepage must stay within the receiver’s 1 MiB file limit.
+
 GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `BAF_DEPLOY_KEY` secret and the pinned host key in `BAF_SSH_KNOWN_HOSTS`. The release workflow passes the deployment secret by name to the reusable job, where the environment supplies its value. The key invokes a restricted receiver that accepts only the four HTML pages, `site.css`, and `math-glossary-en-fr.pdf`. It stages and validates the upload before installing the files under `/home/hainam/dev.jcisio.com/baf`, with the English homepage installed last.
 
 ## Verification
@@ -37,4 +41,11 @@ GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `B
 - Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. SSH upload and HTTPS verification use timeouts so an unresponsive connection cannot hold the deployment slot indefinitely. Check that both primary install buttons open the same Store listing, both manual installation links point to the matching GitHub Release ZIP, and all pages reference the expected stylesheet hash.
 - On each homepage and privacy page, use the language switch to visit its counterpart. Verify that the installation and privacy links stay in the selected language and that the footer opens the BAF source repository on GitHub.
 - On both homepages, verify that the glossary link opens the same two-page A4 landscape PDF, labeled unofficial and with the corrected explanation of congruent figures.
+- On both homepages, check that all seven tutorial images load and that the public demo link opens the exercise. In desktop Chrome, open the book from the demo, scan, scroll inside the viewer, click BAF again, and open a translation in the newly visible panel. Check that the deployment renderer embeds the same seven images and both homepages fit within the receiver’s file limit.
 - For layout changes, verify that all four pages remain readable and that each document's scroll width equals its viewport width above 1400 CSS pixels.
+
+### Tutorial verification on November 24, 2026
+
+Chrome’s Test profile installed the Store extension, opened and closed a pinned translation in the public demo exercise, and translated a newly visible speech bubble after scrolling and scanning again. Both staged homepages decoded all seven screenshots. All four staged pages had no horizontal overflow in 375, 1440, and 1920 CSS-pixel frames. The deployment renderer verified the v0.1.2 download URL, and the receiver accepted the staged archive in a local test.
+
+After conversion to JPEG, deployment rendering again verified the v0.1.2 download URL. Both staged homepages embedded byte-identical copies of all seven JPEGs and were under 404 kB each.
