@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Beast Academy en français",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Hover over Beast Academy lesson instructions and speech bubbles to read them in French.",
   "minimum_chrome_version": "138",
   "icons": {

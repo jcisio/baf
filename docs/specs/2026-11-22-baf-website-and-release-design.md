@@ -23,9 +23,9 @@ Both homepages link to the same [unofficial English–French math glossary](http
 
 ## Build and publish releases
 
-The version in `extension/manifest.json` determines the release version. Use a matching three-part tag such as `v0.1.1`. Pushing the tag triggers **Build extension release**. The same workflow can run manually for an existing tag. If the release already exists, the workflow verifies that its ZIP contains the same files as the new build and reuses it.
+The version in `extension/manifest.json` determines the release version. Use a matching three-part tag. Pushing the tag triggers **Build extension release**. The same workflow can run manually for an existing tag that includes both build targets. Runs for the same tag are serialized. If the release already exists and is published, the workflow compares each existing package with its new build before uploading any missing package. A mismatch fails the job.
 
-The release job checks out the exact tag, checks the manifest version, installs the locked npm dependencies, runs the tests, and builds the extension. It validates the ZIP and attaches `beast-academy-en-francais-<version>.zip` to the matching GitHub Release with `manifest.json` at the archive root.
+The release job checks out the exact tag, checks the manifest version, installs the locked npm dependencies, runs the shared tests, and builds Chrome and Firefox. It checks the integrity, root manifest, version, and English OCR data of both ZIPs and checks that the Firefox package includes the Bergamot worker and translation model. It attaches both packages to the matching GitHub Release. The Chrome package is `beast-academy-en-francais-<version>.zip`, which is also the website's manual installation download. The unsigned Firefox package is `beast-academy-en-francais-<version>-firefox.zip` and supports temporary installation from its extracted manifest.
 
 ## Deploy the website
 
@@ -37,12 +37,16 @@ GitHub Actions uses the `dev` environment to connect to `jcisio.com` with the `B
 
 ## Verification
 
-- Run the release workflow and check that the tag matches the ZIP's root manifest and that GitHub serves the asset without sign-in. The [v0.1.1 release run](https://github.com/jcisio/baf/actions/runs/45065877452) used the manual trigger for the initial tag.
+- Run the release workflow and check that both assets appear on the same release and that GitHub serves them without sign-in. Check that both root manifests match the tag and that the Firefox ZIP contains the Bergamot worker and English–French model. Rerun the workflow to check that it accepts the two matching assets. The [v0.1.1 release run](https://github.com/jcisio/baf/actions/runs/45065877452) used the manual trigger for the initial Chrome release.
 - Confirm that the deploy run succeeds and serves the exact staged files over HTTPS. SSH upload and HTTPS verification use timeouts so an unresponsive connection cannot hold the deployment slot indefinitely. Check that both primary install buttons open the same Store listing, both manual installation links point to the matching GitHub Release ZIP, and all pages reference the expected stylesheet hash.
 - On each homepage and privacy page, use the language switch to visit its counterpart. Verify that the installation and privacy links stay in the selected language and that the footer opens the BAF source repository on GitHub.
 - On both homepages, verify that the glossary link opens the same two-page A4 landscape PDF, labeled unofficial and with the corrected explanation of congruent figures.
 - On both homepages, check that all seven tutorial screenshots load, the video plays and seeks, and the public demo link opens the exercise. In desktop Chrome, open the book from the demo, scan, scroll inside the viewer, click BAF again, and open a translation in the newly visible panel. Check that the deployment renderer embeds the same seven screenshots and video on both homepages and the extension’s own icon on all four pages.
 - For layout changes, verify that all four pages remain readable and that each document's scroll width equals its viewport width above 1400 CSS pixels.
+
+### Dual-package workflow verification on November 24, 2026
+
+The workflow passed linting and its test, build, and archive steps ran locally with Node 24 in a clean directory. A simulated GitHub release verified creation with both packages, reuse of matching packages, upload of a missing Firefox package, and rejection of drafts and mismatches. The dual-package release still needs a run on GitHub from a matching tag.
 
 ### Tutorial verification on November 24, 2026
 

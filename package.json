@@ -3,10 +3,14 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:firefox": "node scripts/build.mjs --firefox",
     "test": "node --test"
   },
   "dependencies": {
     "@tesseract.js-data/eng": "1.0.0",
     "tesseract.js": "7.0.0"
+  },
+  "devDependencies": {
+    "@browsermt/bergamot-translator": "0.4.9"
   }
 }

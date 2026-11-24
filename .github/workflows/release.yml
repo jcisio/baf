@@ -21,6 +21,8 @@ jobs:
       contents: write
     env:
       RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+    concurrency:
+      group: baf-release-${{ inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -42,25 +44,53 @@ jobs:
           npm ci --ignore-scripts
           npm test
           npm run build
-      - name: Package extension
-        working-directory: dist
+          npm run build:firefox
+      - name: Package and verify both extensions
         run: |
-          archive="$RUNNER_TEMP/beast-academy-en-francais-${RELEASE_TAG#v}.zip"
-          zip -qr "$archive" .
-          unzip -tq "$archive"
+          version="${RELEASE_TAG#v}"
+          chrome="$RUNNER_TEMP/beast-academy-en-francais-$version.zip"
+          firefox="$RUNNER_TEMP/beast-academy-en-francais-$version-firefox.zip"
+          (cd dist && zip -qr "$chrome" .)
+          (cd dist-firefox && zip -qr "$firefox" .)
+          for archive in "$chrome" "$firefox"; do
+            unzip -tq "$archive"
+            actual=$(unzip -p "$archive" manifest.json | jq -er .version)
+            test "$actual" = "$version"
+            unzip -p "$archive" ocr/eng.traineddata.gz | gzip -t
+          done
+          unzip -p "$chrome" manifest.json | jq -e 'has("minimum_chrome_version")'
+          unzip -p "$firefox" manifest.json | jq -e '.browser_specific_settings.gecko | has("strict_min_version")'
+          unzip -p "$firefox" bergamot/worker/bergamot-translator-worker.wasm >/dev/null
+          unzip -p "$firefox" bergamot/model.enfr.intgemm.alphas.bin >/dev/null
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          archive="$RUNNER_TEMP/beast-academy-en-francais-${RELEASE_TAG#v}.zip"
-          if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft); then
-            test "$draft" = false
+          version="${RELEASE_TAG#v}"
+          chrome="$RUNNER_TEMP/beast-academy-en-francais-$version.zip"
+          firefox="$RUNNER_TEMP/beast-academy-en-francais-$version-firefox.zip"
+          if release=$(gh release view "$RELEASE_TAG" --json isDraft,assets); then
+            jq -e '.isDraft == false' <<< "$release" >/dev/null
             existing_dir=$(mktemp -d "$RUNNER_TEMP/baf-release.XXXXXXXX")
-            gh release download "$RELEASE_TAG" --pattern "${archive##*/}" --dir "$existing_dir"
-            unzip -q "$existing_dir/${archive##*/}" -d "$existing_dir/unpacked"
-            diff -qr dist "$existing_dir/unpacked"
+            missing=()
+            verify_or_stage_asset() {
+              local archive="$1" build_dir="$2"
+              local name="${archive##*/}"
+              if jq -e --arg name "$name" 'any(.assets[]; .name == $name)' <<< "$release" >/dev/null; then
+                gh release download "$RELEASE_TAG" --pattern "$name" --dir "$existing_dir"
+                unzip -q "$existing_dir/$name" -d "$existing_dir/$build_dir"
+                diff -qr "$build_dir" "$existing_dir/$build_dir"
+              else
+                missing+=("$archive")
+              fi
+            }
+            verify_or_stage_asset "$chrome" dist
+            verify_or_stage_asset "$firefox" dist-firefox
+            if (( ${#missing[@]} )); then
+              gh release upload "$RELEASE_TAG" "${missing[@]}"
+            fi
           else
-            gh release create "$RELEASE_TAG" "$archive" --verify-tag --generate-notes
+            gh release create "$RELEASE_TAG" "$chrome" "$firefox" --verify-tag --generate-notes
           fi
   deploy:
     needs: release

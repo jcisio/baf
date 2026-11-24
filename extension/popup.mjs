@@ -6,6 +6,7 @@ const consent = document.querySelector('#consent')
 const allow = document.querySelector('#allow')
 const cancel = document.querySelector('#cancel')
 const consentKey = 'allow-local-lesson-translation'
+const firefox = globalThis.location?.protocol === 'moz-extension:'
 const languages = { sourceLanguage: 'en', targetLanguage: 'fr' }
 
 class ScanError extends Error {}
@@ -74,23 +75,30 @@ async function translatePage(tab, fromClick = false) {
   let translator
   try {
     try {
-      translator = await Translator.create({
-        ...languages,
-        monitor(monitor) {
-          monitor.addEventListener('downloadprogress', ({ loaded }) => {
-            status.textContent = `Téléchargement du modèle… ${Math.round(loaded * 100)} %`
-          })
-        },
-      })
+      if (firefox) {
+        const { createBergamotTranslator } = await import('./bergamot.mjs')
+        translator = await createBergamotTranslator()
+      } else {
+        translator = await Translator.create({
+          ...languages,
+          monitor(monitor) {
+            monitor.addEventListener('downloadprogress', ({ loaded }) => {
+              status.textContent = `Téléchargement du modèle… ${Math.round(loaded * 100)} %`
+            })
+          },
+        })
+      }
     } catch (error) {
-      if (!fromClick && error.name === 'NotAllowedError') {
+      if (!firefox && !fromClick && error.name === 'NotAllowedError') {
         status.textContent = 'Chrome demande un clic pour préparer le modèle anglais-français.'
         scan.hidden = false
         scan.focus()
         return
       }
       console.warn(error)
-      throw new ScanError('Le modèle anglais-français est indisponible. Vérifiez votre connexion ou les paramètres de Chrome, puis réessayez.')
+      throw new ScanError(firefox
+        ? 'Impossible de charger le moteur de traduction local de Firefox. Rouvrez le panneau puis réessayez.'
+        : 'Le modèle anglais-français est indisponible. Vérifiez votre connexion ou les paramètres de Chrome, puis réessayez.')
     }
 
     status.textContent = 'Lecture du texte visible…'
@@ -135,7 +143,7 @@ async function translatePage(tab, fromClick = false) {
       ? error.message
       : 'La traduction a échoué. Rouvrez la leçon puis réessayez.'
   } finally {
-    translator?.destroy()
+    await translator?.destroy()
   }
 }
 
@@ -143,7 +151,7 @@ async function start(fromModelButton = false) {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
   if (!isClassroom(tab?.url)) {
     status.textContent = 'Ouvrez une leçon Beast Academy pour utiliser la traduction.'
-  } else if (!globalThis.Translator) {
+  } else if (!firefox && !globalThis.Translator) {
     status.textContent = 'La traduction locale nécessite une version récente de Chrome sur ordinateur.'
   } else {
     await translatePage(tab, fromModelButton)

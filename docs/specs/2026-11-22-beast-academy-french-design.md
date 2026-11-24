@@ -1,6 +1,6 @@
 # French translation for Beast Academy
 
-Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm). The [v0.1.2 GitHub Release](https://github.com/jcisio/baf/releases/tag/v0.1.2) provides a ZIP for manual installation. [Website and release behavior](2026-11-22-baf-website-and-release-design.md) is specified separately.
+Install Chrome from the [Chrome Web Store](https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm). For manual installation, use [GitHub Releases](https://github.com/jcisio/baf/releases). Starting with version 0.1.3, the release workflow builds separate Chrome and Firefox ZIPs from the same tag. [Website and release behavior](2026-11-22-baf-website-and-release-design.md) is specified separately.
 
 ## What the learner does
 
@@ -18,9 +18,11 @@ Video, narration, and read-aloud audio are outside this version.
 
 ## Where processing happens
 
-This Manifest V3 extension requires desktop Chrome 138 or later with the built-in Translator API available. Scans are limited to HTTPS pages under `/school/classroom/` and the public demo's `/demo/school/classroom/` on `beastacademy.com` or `www.beastacademy.com`. The extension uses `activeTab` and `scripting` after the user invokes it.
+This Manifest V3 extension supports desktop Chrome 138 or later with the built-in Translator API available. The Firefox prototype requires desktop Firefox 153 or later to target the scanned document by ID. Scans are limited to HTTPS pages under `/school/classroom/` and the public demo's `/demo/school/classroom/` on `beastacademy.com` or `www.beastacademy.com`. The extension uses `activeTab` and `scripting` after the user invokes it.
 
 Chrome translates English into French on-device and may need to download the language model on first use. The extension bundles the OCR worker, WebAssembly, and English recognition model. The build replaces Tesseract's CDN defaults with local asset paths and fails if those defaults change or a CDN reference remains. The extension stores consent locally and keeps the capture, lesson text, and results in memory. It displays the current scan stage in French and reports when the model is unavailable or no readable text was found. The extension sends neither captured pixels nor lesson text to a remote service.
+
+The Firefox package runs Bergamot 0.4.9 in a packaged WebAssembly worker with Mozilla's English–French model 2.0. The build downloads the model files from Mozilla, verifies their SHA-256 hashes, and includes them with the worker and its local model registry. At run time, the worker reads the model from the extension package. Firefox uses the same OCR, consent flow, and in-page tooltips as Chrome.
 
 ## Installation and Store listing
 
@@ -28,6 +30,7 @@ Chrome translates English into French on-device and may need to download the lan
 - Unzip the release and select the folder containing `manifest.json` with **Load unpacked** in `chrome://extensions`. Local builds use `npm ci` followed by `npm run build`.
 - The [Store screenshot](../../store-assets/store-screenshot.jpg) is a 1280 × 800 JPEG showing a translated comic speech bubble.
 - The Store package includes a 128 × 128 **BAF** icon. Reviewers can open the [guest demo lesson Delicious + &amp; −](https://beastacademy.com/demo/school/classroom/1/7/1511/1) and its book section without signing in. The [privacy policy](https://dev.jcisio.com/baf/privacy.html) covers local consent and lesson processing.
+- Run `npm run build:firefox` to generate `dist-firefox/`. Load its manifest with **Load Temporary Add-on** in `about:debugging#/runtime/this-firefox`. The prototype is installed for the current Firefox session.
 
 ## Verification
 
@@ -40,3 +43,6 @@ Chrome translates English into French on-device and may need to download the lan
 - Scroll to a different set of bubbles and scan again. Confirm that targets follow the newly visible text and old targets disappear.
 - On the same lesson's exercise instructions, confirm that hovering over the counting prompt shows its French translation. Check that lesson controls still respond to clicks.
 - Check that the extension reports an unavailable translation model clearly and that activating it on another site captures nothing.
+- For Firefox, open the demo book to page 18, zoom in one step with the book's **+** button, then block HTTP and HTTPS without enabling Firefox's **Work Offline** setting. Scan and hover over the first speech bubble. Verify that the OCR recognizes “Welcome back, little monsters.” and the tooltip shows “Bienvenue, petits monstres.” Click to pin and press Escape to dismiss.
+- Verified on Firefox 161.0 (Linux ARM64) with the unpacked build. Canceling first-use consent left the lesson untouched. With HTTP and HTTPS blocked, the scan produced the expected French tooltip, click pinned it, and Escape dismissed it. Firefox recorded no HTTP or HTTPS requests from the extension during the test.
+- Firefox 161.0's **Work Offline** setting prevented the packaged worker from loading during a separate test. The verification above blocks external requests while retaining access to packaged resources.
