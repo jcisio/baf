@@ -53,6 +53,7 @@ export async function bundleBergamot(output) {
   delete manifest.minimum_chrome_version
   manifest.browser_specific_settings = {
     gecko: {
+      id: 'baf@jcisio.com',
       strict_min_version: '153.0',
       data_collection_permissions: { required: ['none'] },
     },
