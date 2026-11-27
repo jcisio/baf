@@ -23,11 +23,16 @@
         <h1>Read Beast Academy in French</h1>
         <p>Hover over an English instruction or speech bubble to see its French translation. Click to keep it open while you read.</p>
         <div class="install-actions">
-          <a class="button" href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm">Add to Chrome</a>
-          <a class="button" href="https://addons.mozilla.org/en-US/firefox/addon/beast-academy-en-fran%C3%A7ais/">Add to Firefox</a>
+          <div>
+            <a class="button" href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm" aria-describedby="chrome-version">Add to Chrome</a>
+            <p class="requirements" id="chrome-version">Chrome 138+</p>
+          </div>
+          <div>
+            <a class="button" href="https://addons.mozilla.org/en-US/firefox/addon/beast-academy-en-fran%C3%A7ais/" aria-describedby="firefox-version">Add to Firefox</a>
+            <p class="requirements" id="firefox-version">Firefox 153+</p>
+          </div>
         </div>
-        <p class="requirements">Desktop Chrome 138 or later</p>
-        <p class="requirements"><a href="#install-firefox">Using Firefox? See installation options</a></p>
+        <p class="requirements"><a href="#install-firefox">Temporary installation in Firefox</a></p>
       </div>
       <div class="example" aria-label="Example translation">
         <p class="original" lang="en">How many dots are in each row?</p>
@@ -86,7 +91,7 @@
       <details>
         <summary>Manual installation in Chrome</summary>
         <ol>
-          <li><a href="@@RELEASE_URL@@">Download the ZIP from GitHub (version @@VERSION@@)</a> and extract it.</li>
+          <li><a href="@@RELEASE_URL@@">Download the Chrome ZIP (version @@VERSION@@)</a> and extract it.</li>
           <li>Open <code>chrome://extensions</code> in desktop Chrome and turn on <strong>Developer mode</strong>.</li>
           <li>Choose <strong>Load unpacked</strong> and select the extracted folder that contains <code>manifest.json</code>.</li>
         </ol>
@@ -95,12 +100,10 @@
       <p>For a printable reference, see the <a href="math-glossary-en-fr.pdf">unofficial English–French math glossary for Beast Academy (PDF)</a>.</p>
     </section>
     <section class="guide" id="install-firefox">
-      <h2>Install in Firefox</h2>
-      <p>Desktop Firefox 153 or later.</p>
-      <h3>Temporary installation from a ZIP</h3>
+      <h2>Temporary installation in Firefox</h2>
       <ol>
         <li><a href="@@FIREFOX_RELEASE_URL@@">Download the Firefox ZIP (version @@VERSION@@)</a> and extract it.</li>
-        <li>In Firefox, type <code>about:debugging#/runtime/this-firefox</code> in the address bar.</li>
+        <li>In desktop Firefox, type <code>about:debugging#/runtime/this-firefox</code> in the address bar.</li>
         <li>Click <strong>Load Temporary Add-on…</strong> and select <code>manifest.json</code> from the extracted folder.</li>
         <li>Open a Beast Academy lesson and choose <strong>Beast Academy en français</strong> from the <strong>Extensions</strong> menu. On first use, choose <strong>Allow and translate</strong>.</li>
       </ol>
