@@ -48,7 +48,7 @@ jobs:
           firefox_content=()
           case "$RELEASE_TAG" in
             v0.1.1|v0.1.2)
-              firefox_content=(-e '/href="#install-firefox"/d' -e '/<section .*id="install-firefox"/,/<\/section>/d')
+              firefox_content=(-e '/<section .*id="install-firefox"/,/<\/section>/d')
               ;;
             *)
               curl --fail --silent --show-error --location --head --retry 3 --max-time 30 "$firefox_url" >/dev/null

@@ -68,6 +68,8 @@ h2 { font-size: 1.4rem; margin: 0 0 .75rem; }
 .original { background: #fff; border-radius: .95rem .95rem .95rem .2rem; }
 .translation { justify-self: end; background: var(--red-dark); color: white; border-radius: .75rem .75rem .2rem .75rem; }
 .guide { border-top: 1px solid var(--border); padding-block: 1.5rem; }
+.guide > summary { font-size: 1.4rem; font-weight: 700; cursor: pointer; }
+.guide > summary + .install-actions { margin-top: 1rem; }
 .guide > p, .guide ol, .policy { max-width: 43rem; }
 .guide > p, .guide ol { margin-block: .75rem 0; }
 .guide ol { padding-left: 1.25rem; }
@@ -94,7 +96,6 @@ h2 { font-size: 1.4rem; margin: 0 0 .75rem; }
 }
 .tutorial-steps figure { margin: 0; }
 .tutorial-steps figcaption { margin-top: .35rem; font-size: .9rem; color: var(--muted); }
-.guide details { margin-top: 1.5rem; }
 code { font-size: .95em; overflow-wrap: anywhere; }
 .policy { padding-block: 2rem; }
 .policy h2 { margin-top: 1.5rem; }

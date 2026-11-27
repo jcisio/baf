@@ -22,26 +22,25 @@
       <div>
         <h1>Lisez Beast Academy en français</h1>
         <p>Survolez une consigne ou une bulle en anglais pour afficher sa traduction. Cliquez sur le texte pour garder la traduction ouverte.</p>
-        <div class="install-actions">
-          <div>
-            <a class="button" href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm" aria-describedby="chrome-version">Ajouter à Chrome</a>
-            <p class="requirements" id="chrome-version">Chrome 138+</p>
-          </div>
-          <div>
-            <a class="button" href="https://addons.mozilla.org/fr/firefox/addon/beast-academy-en-fran%C3%A7ais/" aria-describedby="firefox-version">Ajouter à Firefox</a>
-            <p class="requirements" id="firefox-version">Firefox 153+</p>
-          </div>
-        </div>
-        <p class="requirements"><a href="#install-firefox">Installation temporaire dans Firefox</a></p>
       </div>
       <div class="example" aria-label="Exemple de traduction">
         <p class="original" lang="en">How many dots are in each row?</p>
         <p class="translation">Combien y a-t-il de points dans chaque rangée&nbsp;?</p>
       </div>
     </section>
-    <section class="guide" id="install">
-      <h2>Installer l’extension dans Chrome</h2>
-      <h3 id="walkthrough">Voir le tutoriel dans Chrome</h3>
+    <details class="guide" id="install">
+      <summary>Installer l’extension</summary>
+      <div class="install-actions">
+        <div>
+          <a class="button" href="https://chrome.google.com/webstore/detail/cokhncjonhniclmcofefijjigechjnlm" aria-describedby="chrome-version">Ajouter à Chrome</a>
+          <p class="requirements" id="chrome-version">Chrome 138+</p>
+        </div>
+        <div>
+          <a class="button" href="https://addons.mozilla.org/fr/firefox/addon/beast-academy-en-fran%C3%A7ais/" aria-describedby="firefox-version">Ajouter à Firefox</a>
+          <p class="requirements" id="firefox-version">Firefox 153+</p>
+        </div>
+      </div>
+      <h3 id="walkthrough">Tutoriel d’installation dans Chrome</h3>
       <video class="walkthrough" src="tutorial/chrome-walkthrough.mp4" width="912" height="624" controls playsinline preload="metadata" aria-labelledby="walkthrough"></video>
       <p class="walkthrough-note">Vidéo sans son. Les étapes sont détaillées ci-dessous.</p>
       <p>La vidéo et les captures d’écran montrent Chrome en anglais.</p>
@@ -59,6 +58,25 @@
           <img src="tutorial/pin.jpg" width="331" height="198" loading="lazy" alt="L’épingle se trouve juste à droite de Beast Academy en français dans le menu Extensions.">
         </li>
       </ol>
+      <h3>Installation manuelle dans Chrome</h3>
+      <ol>
+        <li><a href="@@RELEASE_URL@@">Téléchargez le ZIP pour Chrome (version @@VERSION@@)</a> et décompressez-le.</li>
+        <li>Ouvrez <code>chrome://extensions</code> dans Chrome sur votre ordinateur et activez le <strong>Mode développeur</strong>.</li>
+        <li>Cliquez sur <strong>Charger l’extension non empaquetée</strong> et sélectionnez le dossier décompressé qui contient <code>manifest.json</code>.</li>
+      </ol>
+      <section id="install-firefox">
+        <h3>Installation temporaire dans Firefox</h3>
+        <ol>
+          <li><a href="@@FIREFOX_RELEASE_URL@@">Téléchargez le ZIP pour Firefox (version @@VERSION@@)</a> et décompressez-le.</li>
+          <li>Dans Firefox sur votre ordinateur, saisissez <code>about:debugging#/runtime/this-firefox</code> dans la barre d’adresse.</li>
+          <li>Cliquez sur <strong>Charger un module complémentaire temporaire…</strong> et sélectionnez <code>manifest.json</code> dans le dossier décompressé.</li>
+          <li>Ouvrez une leçon Beast Academy et choisissez <strong>Beast Academy en français</strong> dans le menu <strong>Extensions</strong>. À la première utilisation, choisissez <strong lang="en">Allow and translate</strong> (« Autoriser et traduire »).</li>
+        </ol>
+        <p>Après avoir redémarré Firefox, chargez de nouveau <code>manifest.json</code> depuis le même dossier.</p>
+      </section>
+    </details>
+    <section class="guide" id="usage">
+      <h2>Utiliser l’extension</h2>
       <h3>Traduire un exercice</h3>
       <ol class="tutorial-steps">
         <li>
@@ -89,26 +107,8 @@
           </figure>
         </li>
       </ol>
-      <details>
-        <summary>Installation manuelle dans Chrome</summary>
-        <ol>
-          <li><a href="@@RELEASE_URL@@">Téléchargez le ZIP pour Chrome (version @@VERSION@@)</a> et décompressez-le.</li>
-          <li>Ouvrez <code>chrome://extensions</code> dans Chrome sur votre ordinateur et activez le <strong>Mode développeur</strong>.</li>
-          <li>Cliquez sur <strong>Charger l’extension non empaquetée</strong> et sélectionnez le dossier décompressé qui contient <code>manifest.json</code>.</li>
-        </ol>
-      </details>
       <p>L’extension s’utilise avec votre accès Beast Academy habituel. Elle traduit le texte visible des exercices et des livres, y compris celui des illustrations. Les captures d’écran et le texte des leçons restent sur votre appareil.</p>
       <p>Pour une fiche imprimable, consultez le <a href="math-glossary-en-fr.pdf">lexique mathématique anglais–français non officiel pour Beast Academy (PDF)</a>.</p>
-    </section>
-    <section class="guide" id="install-firefox">
-      <h2>Installation temporaire dans Firefox</h2>
-      <ol>
-        <li><a href="@@FIREFOX_RELEASE_URL@@">Téléchargez le ZIP pour Firefox (version @@VERSION@@)</a> et décompressez-le.</li>
-        <li>Dans Firefox sur votre ordinateur, saisissez <code>about:debugging#/runtime/this-firefox</code> dans la barre d’adresse.</li>
-        <li>Cliquez sur <strong>Charger un module complémentaire temporaire…</strong> et sélectionnez <code>manifest.json</code> dans le dossier décompressé.</li>
-        <li>Ouvrez une leçon Beast Academy et choisissez <strong>Beast Academy en français</strong> dans le menu <strong>Extensions</strong>. À la première utilisation, choisissez <strong lang="en">Allow and translate</strong> (« Autoriser et traduire »).</li>
-      </ol>
-      <p>Après avoir redémarré Firefox, chargez de nouveau <code>manifest.json</code> depuis le même dossier.</p>
     </section>
   </main>
   <footer class="wrap site-footer">
