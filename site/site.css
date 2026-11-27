@@ -69,7 +69,6 @@ h2 { font-size: 1.4rem; margin: 0 0 .75rem; }
 .translation { justify-self: end; background: var(--red-dark); color: white; border-radius: .75rem .75rem .2rem .75rem; }
 .guide { border-top: 1px solid var(--border); padding-block: 1.5rem; }
 .guide > summary { font-size: 1.4rem; font-weight: 700; cursor: pointer; }
-.guide > summary + .install-actions { margin-top: 1rem; }
 .guide > p, .guide ol, .policy { max-width: 43rem; }
 .guide > p, .guide ol { margin-block: .75rem 0; }
 .guide ol { padding-left: 1.25rem; }
