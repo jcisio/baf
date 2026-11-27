@@ -32,7 +32,7 @@ The Firefox package runs Bergamot 0.4.9 in a packaged WebAssembly worker with Mo
 - The Store package includes a 128 × 128 **BAF** icon. Reviewers can open the [guest demo lesson Delicious + &amp; −](https://beastacademy.com/demo/school/classroom/1/7/1511/1) and its book section without signing in. The [privacy policy](https://dev.jcisio.com/baf/privacy.html) covers local consent and lesson processing.
 - Run `npm run build:firefox` to generate `dist-firefox/`. Load its manifest with **Load Temporary Add-on** in `about:debugging#/runtime/this-firefox`. The prototype is installed for the current Firefox session.
 - Firefox builds identify the add-on as `baf@jcisio.com` for Mozilla signing. For review, package the contents of `dist-firefox/` with the manifest at the ZIP root and submit the build scripts and locked sources separately. On Node.js 24, `npm ci --ignore-scripts` and `npm run build:firefox` reproduce that package.
-- Mozilla received the signed-distribution submission for Firefox version 0.1.3 and its reviewer source archive on November 24, 2026. The Developer Hub reported **Awaiting Review**. Verify public installation before adding store links to the website.
+- Mozilla received the Firefox 0.1.3 submission and reviewer source archive on November 24, 2026. On November 27, the public Mozilla Add-ons API confirmed that version 0.1.3 was available on the [Firefox listing](https://addons.mozilla.org/en-US/firefox/addon/beast-academy-en-fran%C3%A7ais/).
 
 ## Verification
 
